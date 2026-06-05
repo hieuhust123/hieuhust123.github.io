@@ -1,0 +1,38 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Google Fonts ─────────────────────────────────────────────────────────── */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ─── Base resets ───────────────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-[#0D0D0D] text-zinc-200 font-sans antialiased;
+  }
+
+  /* Custom scrollbar — subtle, on-brand */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { @apply bg-[#0D0D0D]; }
+  ::-webkit-scrollbar-thumb { @apply bg-zinc-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-violet-600; }
+}
+
+/* ─── Utility: gradient text ────────────────────────────────────────────────── */
+@layer utilities {
+  .text-gradient {
+    @apply bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent;
+  }
+  /* Glowing border used on project cards */
+  .card-glow {
+    box-shadow: 0 0 0 1px #2A2A2A;
+    transition: box-shadow 0.25s ease;
+  }
+  .card-glow:hover {
+    box-shadow: 0 0 0 1px #7C3AED, 0 4px 24px rgba(124, 58, 237, 0.15);
+  }
+}
