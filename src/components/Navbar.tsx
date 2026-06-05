@@ -22,7 +22,7 @@ export default function Navbar() {
 
         {/* Logo / wordmark */}
         <Link href="/" className="font-mono text-sm font-medium text-white tracking-wider hover:text-violet-400 transition-colors">
-          harry.bui<span className="text-violet-400">_</span>
+          Harry.Bui
         </Link>
 
         {/* Desktop nav links */}

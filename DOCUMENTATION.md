@@ -82,9 +82,21 @@ The page will automatically refresh every time you save a file. Keep the termina
 
 ## 3. Deploying to GitHub Pages (Going Live)
 
-After you finish editing, push the changes to GitHub. The site will build and go live automatically at `https://hieuhust123.github.io`.
+The site is hosted **free** on GitHub Pages. Once set up, every time you push code, GitHub automatically rebuilds and republishes the live site at `https://hieuhust123.github.io`.
 
-**First-time setup** (do this once):
+GitHub username: **hieuhust123** · Live URL: **https://hieuhust123.github.io**
+
+### First-time setup (do this once)
+
+**Step 1 — Create the repository on GitHub**
+
+1. Go to https://github.com/new
+2. **Repository name:** `hieuhust123.github.io` — must be exactly this (your username + `.github.io`). This is what makes it a free personal site.
+3. Visibility: **Public**
+4. Leave everything else **unchecked** — no README, no .gitignore, no license (this repo already has files).
+5. Click **Create repository**.
+
+**Step 2 — Push your code** (in PowerShell):
 ```powershell
 cd d:\Personal_portfolio
 git init
@@ -94,18 +106,41 @@ git branch -M main
 git remote add origin https://github.com/hieuhust123/hieuhust123.github.io.git
 git push -u origin main
 ```
+On the first `git push`, a browser window will ask you to log in to GitHub — approve it (this happens only once). If `git commit` complains it doesn't know who you are, run this first:
+```powershell
+git config --global user.email "duchieubui511@gmail.com"
+git config --global user.name "Hieu Bui"
+```
 
-Then go to your GitHub repo → **Settings → Pages → Source → select "GitHub Actions"**.
+**Step 3 — Turn on GitHub Pages**
 
-**Every time after that** (to publish your updates):
+Go to the **repository's** settings (NOT your account settings):
+
+1. Open https://github.com/hieuhust123/hieuhust123.github.io/settings/pages
+2. Under **Build and deployment → Source**, select **GitHub Actions** (not "Deploy from a branch").
+
+> ⚠️ Common mistake: there are *two* "Pages" settings. The one you need is inside the **repository** (URL above, has a "Source" dropdown). The account-wide one at `github.com/settings/pages` only handles "Verified domains" — that is **not** the right page.
+
+**Step 4 — Wait for the build**
+
+1. Open the **Actions** tab: https://github.com/hieuhust123/hieuhust123.github.io/actions
+2. Find the **"Deploy to GitHub Pages"** workflow. Yellow ● = building, green ✅ = done, red ✗ = failed.
+3. When it's green (~2 minutes), your site is live at **https://hieuhust123.github.io**.
+
+> If the first run failed (red ✗) because it ran *before* you set the Source to "GitHub Actions" in Step 3, just re-run it: open the failed run → **Re-run all jobs**.
+
+### Every time after that (to publish updates)
+
+Whenever you change the site, run:
 ```powershell
 cd d:\Personal_portfolio
 git add .
 git commit -m "Describe what you changed"
 git push
 ```
+GitHub rebuilds and redeploys automatically. Wait ~2 minutes (watch the **Actions** tab), then refresh `https://hieuhust123.github.io` to see your changes live.
 
-Wait ~2 minutes, then visit `https://hieuhust123.github.io` to see the live site.
+> The `git init`, `git remote add`, and Pages setup (Steps 1–3) are **one-time only**. After that, you only ever need the three `git add` / `git commit` / `git push` commands above.
 
 ---
 
