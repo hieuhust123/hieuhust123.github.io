@@ -17,11 +17,11 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#2A2A2A] bg-[#0D0D0D]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#1E2733] bg-[#0A0E14]/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
         {/* Logo / wordmark */}
-        <Link href="/" className="font-mono text-sm font-medium text-white tracking-wider hover:text-violet-400 transition-colors">
+        <Link href="/" className="font-mono text-sm font-medium text-white tracking-wider hover:text-green-400 transition-colors">
           Harry.Bui
         </Link>
 
@@ -35,7 +35,7 @@ export default function Navbar() {
                   href={href}
                   className={clsx(
                     'relative text-sm font-medium transition-colors duration-200',
-                    isActive ? 'text-violet-400' : 'text-zinc-400 hover:text-white'
+                    isActive ? 'text-green-400' : 'text-zinc-400 hover:text-white'
                   )}
                 >
                   {label}
@@ -43,7 +43,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute -bottom-1 left-0 h-px w-full bg-violet-400"
+                      className="absolute -bottom-1 left-0 h-px w-full bg-green-400"
                     />
                   )}
                 </Link>

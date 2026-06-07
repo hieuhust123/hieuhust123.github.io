@@ -235,15 +235,15 @@ export default function ProjectDetailPage({ params }: Props) {
       {/* ── Back navigation ─────────────────────────────────────────── */}
       <Link
         href="/projects"
-        className="mb-10 inline-flex items-center gap-2 font-mono text-sm text-zinc-500 transition-colors hover:text-violet-400"
+        className="mb-10 inline-flex items-center gap-2 font-mono text-sm text-zinc-500 transition-colors hover:text-green-400"
       >
         ← Back to projects
       </Link>
 
       {/* ── Article header ──────────────────────────────────────────── */}
-      <header className="mb-12 border-b border-[#2A2A2A] pb-10">
+      <header className="mb-12 border-b border-[#1E2733] pb-10">
         {/* Breadcrumb slug */}
-        <p className="mb-3 font-mono text-xs text-violet-400 uppercase tracking-widest">
+        <p className="mb-3 font-mono text-xs text-green-400 uppercase tracking-widest">
           {slug}
         </p>
 
@@ -264,7 +264,7 @@ export default function ProjectDetailPage({ params }: Props) {
             {project.tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-md bg-[#1F1F1F] px-2.5 py-1 font-mono text-xs text-violet-300 border border-[#2A2A2A]"
+                className="rounded-md bg-[#0F141C] px-2.5 py-1 font-mono text-xs text-green-300 border border-[#1E2733]"
               >
                 {tag}
               </li>
@@ -284,7 +284,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg border border-[#2A2A2A] px-4 py-2 text-sm text-zinc-400 transition-colors hover:border-violet-500 hover:text-white"
+                className="rounded-lg border border-[#1E2733] px-4 py-2 text-sm text-zinc-400 transition-colors hover:border-green-500 hover:text-white"
               >
                 View on GitHub →
               </a>
@@ -294,7 +294,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg bg-violet-600/10 border border-violet-600/30 px-4 py-2 text-sm text-violet-400 transition-colors hover:bg-violet-600/20"
+                className="rounded-lg bg-green-500/10 border border-green-500/30 px-4 py-2 text-sm text-green-400 transition-colors hover:bg-green-500/20"
               >
                 Live Demo →
               </a>
@@ -304,7 +304,7 @@ export default function ProjectDetailPage({ params }: Props) {
       </header>
 
       {/* ── Hero media ──────────────────────────────────────────────── */}
-      <div className="relative mb-12 overflow-hidden rounded-xl border border-[#2A2A2A] aspect-video bg-[#161616] flex items-center justify-center">
+      <div className="relative mb-12 overflow-hidden rounded-xl border border-[#1E2733] aspect-video bg-[#0F141C] flex items-center justify-center">
         {project.media?.type === 'image' ? (
           <Image
             src={project.media.src}
@@ -332,9 +332,9 @@ export default function ProjectDetailPage({ params }: Props) {
       {/* ── Long-form content ───────────────────────────────────────── */}
       <article className="prose prose-invert prose-zinc max-w-none
                           prose-headings:font-semibold
-                          prose-a:text-violet-400 prose-a:no-underline hover:prose-a:underline
-                          prose-code:font-mono prose-code:text-violet-300
-                          prose-pre:border prose-pre:border-[#2A2A2A] prose-pre:rounded-xl">
+                          prose-a:text-green-400 prose-a:no-underline hover:prose-a:underline
+                          prose-code:font-mono prose-code:text-green-300
+                          prose-pre:border prose-pre:border-[#1E2733] prose-pre:rounded-xl">
         {project.body.map((section) => (
           <section key={section.heading}>
             <h2>{section.heading}</h2>
@@ -349,7 +349,7 @@ export default function ProjectDetailPage({ params }: Props) {
               >
                 {section.images.map((img) => (
                   <figure key={img.src} className="m-0">
-                    <div className="relative aspect-video overflow-hidden rounded-lg border border-[#2A2A2A] bg-[#161616]">
+                    <div className="relative aspect-video overflow-hidden rounded-lg border border-[#1E2733] bg-[#0F141C]">
                       <Image
                         src={img.src}
                         alt={img.alt}

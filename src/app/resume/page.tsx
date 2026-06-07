@@ -8,13 +8,13 @@ export default function ResumePage() {
       {/* ── Page header with PDF download ──────────────────────────── */}
       <div className="mb-12 flex items-start justify-between gap-4 flex-wrap">
         <div>
-          <p className="mb-1 font-mono text-xs text-violet-400 uppercase tracking-widest">Résumé</p>
+          <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Résumé</p>
           <h1 className="text-4xl font-bold text-white">Hieu Bui</h1>
         </div>
         <a
           href="/resume.pdf"   // place your PDF at /public/resume.pdf
           download
-          className="shrink-0 rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/20 transition-all duration-200 hover:bg-violet-500 hover:-translate-y-0.5"
+          className="shrink-0 rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-[#06210D] shadow-lg shadow-green-500/20 transition-all duration-200 hover:bg-green-400 hover:-translate-y-0.5"
         >
           Download PDF ↓
         </a>
@@ -130,7 +130,7 @@ export default function ResumePage() {
 function Section({ title, children }: { title: string; children: React.ReactNode }) {
   return (
     <section>
-      <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-violet-400 font-mono">
+      <h2 className="mb-4 text-xs font-semibold uppercase tracking-widest text-green-400 font-mono">
         {title}
       </h2>
       {children}
@@ -139,7 +139,7 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 }
 
 function Divider() {
-  return <hr className="border-[#2A2A2A]" />;
+  return <hr className="border-[#1E2733]" />;
 }
 
 function ExperienceItem({
@@ -161,7 +161,7 @@ function ExperienceItem({
       </div>
       <ul className="mt-2 flex flex-col gap-1 pl-4">
         {bullets.map((b) => (
-          <li key={b} className="relative text-zinc-400 leading-relaxed before:absolute before:-left-3 before:content-['·'] before:text-violet-400">
+          <li key={b} className="relative text-zinc-400 leading-relaxed before:absolute before:-left-3 before:content-['·'] before:text-green-400">
             {b}
           </li>
         ))}
@@ -176,7 +176,7 @@ function SkillRow({ label, skills }: { label: string; skills: string[] }) {
       <span className="shrink-0 font-mono text-xs text-zinc-500 w-20">{label}</span>
       <ul className="flex flex-wrap gap-2">
         {skills.map((s) => (
-          <li key={s} className="rounded bg-[#1F1F1F] border border-[#2A2A2A] px-2 py-0.5 font-mono text-xs text-zinc-300">
+          <li key={s} className="rounded bg-[#0F141C] border border-[#1E2733] px-2 py-0.5 font-mono text-xs text-zinc-300">
             {s}
           </li>
         ))}

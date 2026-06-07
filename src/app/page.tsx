@@ -65,7 +65,7 @@ export default function HomePage() {
         <motion.p
           {...fadeUp}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="mb-4 font-mono text-sm text-violet-400"
+          className="mb-4 font-mono text-sm text-green-400"
         >
           Hi, I&apos;m
         </motion.p>
@@ -106,13 +106,13 @@ export default function HomePage() {
         >
           <Link
             href="/projects"
-            className="rounded-lg bg-violet-600 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/20 transition-all duration-200 hover:bg-violet-500 hover:-translate-y-0.5"
+            className="rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-[#06210D] shadow-lg shadow-green-500/20 transition-all duration-200 hover:bg-green-400 hover:-translate-y-0.5"
           >
             View Projects
           </Link>
           <Link
             href="/resume"
-            className="rounded-lg border border-[#2A2A2A] px-5 py-2.5 text-sm font-semibold text-zinc-300 transition-all duration-200 hover:border-violet-500 hover:text-white hover:-translate-y-0.5"
+            className="rounded-lg border border-[#1E2733] px-5 py-2.5 text-sm font-semibold text-zinc-300 transition-all duration-200 hover:border-green-500 hover:text-white hover:-translate-y-0.5"
           >
             Resume
           </Link>
@@ -123,20 +123,20 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════════
           FEATURED PROJECTS SECTION
       ════════════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[#2A2A2A] bg-[#0D0D0D] py-24">
+      <section className="border-t border-[#1E2733] bg-[#0A0E14] py-24">
         <div className="mx-auto max-w-6xl px-6">
 
           {/* Section header */}
           <div className="mb-12 flex items-end justify-between">
             <div>
-              <p className="mb-1 font-mono text-xs text-violet-400 uppercase tracking-widest">
+              <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">
                 Selected work
               </p>
               <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
             </div>
             <Link
               href="/projects"
-              className="hidden text-sm text-zinc-500 transition-colors hover:text-violet-400 sm:block"
+              className="hidden text-sm text-zinc-500 transition-colors hover:text-green-400 sm:block"
             >
               All projects →
             </Link>
@@ -155,9 +155,9 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════════
           QUICK ABOUT / SKILLS STRIP (optional teaser)
       ════════════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[#2A2A2A] py-24">
+      <section className="border-t border-[#1E2733] py-24">
         <div className="mx-auto max-w-6xl px-6 text-center">
-          <p className="mb-2 font-mono text-xs text-violet-400 uppercase tracking-widest">
+          <p className="mb-2 font-mono text-xs text-green-400 uppercase tracking-widest">
             Core skills
           </p>
           <h2 className="mb-10 text-3xl font-bold text-white">What I work with</h2>
@@ -171,7 +171,7 @@ export default function HomePage() {
             ].map((skill) => (
               <li
                 key={skill}
-                className="rounded-full border border-[#2A2A2A] bg-[#161616] px-4 py-1.5 font-mono text-sm text-zinc-300 transition-colors hover:border-violet-500 hover:text-violet-300"
+                className="rounded-full border border-[#1E2733] bg-[#0F141C] px-4 py-1.5 font-mono text-sm text-zinc-300 transition-colors hover:border-green-500 hover:text-green-300"
               >
                 {skill}
               </li>

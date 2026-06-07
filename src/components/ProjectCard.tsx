@@ -29,10 +29,10 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="group card-glow relative flex flex-col rounded-xl bg-[#161616] overflow-hidden transition-colors hover:bg-[#1b1b1b] focus-within:ring-2 focus-within:ring-violet-500"
+      className="group card-glow relative flex flex-col rounded-xl bg-[#0F141C] overflow-hidden transition-colors hover:bg-[#141B26] focus-within:ring-2 focus-within:ring-green-500"
     >
       {/* ── Media area (image or video) ───────────────────────────────── */}
-      <div className="relative aspect-video w-full bg-[#1a1a1a] overflow-hidden">
+      <div className="relative aspect-video w-full bg-[#0F141C] overflow-hidden">
         {media.type === 'image' ? (
           <Image
             src={media.src}
@@ -70,7 +70,7 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-md bg-[#1F1F1F] px-2 py-0.5 font-mono text-xs text-violet-300 border border-[#2A2A2A]"
+              className="rounded-md bg-[#0F141C] px-2 py-0.5 font-mono text-xs text-green-300 border border-[#1E2733]"
             >
               {tag}
             </li>
@@ -82,7 +82,7 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
         <Link
           href={`/projects/${slug}`}
           aria-label={`View project: ${title}`}
-          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-violet-400 transition-colors group-hover:text-violet-300 focus:outline-none after:absolute after:inset-0 after:rounded-xl"
+          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-400 transition-colors group-hover:text-green-300 focus:outline-none after:absolute after:inset-0 after:rounded-xl"
         >
           View details
           <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>

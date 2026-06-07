@@ -32,7 +32,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#2A2A2A] bg-[#0D0D0D]">
+    <footer className="border-t border-[#1E2733] bg-[#0A0E14]">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
 
         {/* Left: copyright */}

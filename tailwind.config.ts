@@ -14,13 +14,13 @@ const config: Config = {
       // Brand palette — tweak these two lines to retheme the whole site
       colors: {
         brand: {
-          accent:  '#7C3AED', // violet-600  — primary CTA / highlights
-          muted:   '#A78BFA', // violet-400  — secondary text accents
+          accent:  '#34D058', // bright PCB green — primary CTA / highlights
+          muted:   '#56F175', // lighter green   — secondary text accents
         },
         surface: {
-          base:    '#0D0D0D', // near-black background
-          card:    '#161616', // card / panel background
-          border:  '#2A2A2A', // subtle borders
+          base:    '#0A0E14', // deep slate background
+          card:    '#0F141C', // card / panel background
+          border:  '#1E2733', // subtle slate borders
         },
       },
       fontFamily: {
@@ -33,13 +33,13 @@ const config: Config = {
           css: {
             '--tw-prose-body':         theme('colors.zinc.300'),
             '--tw-prose-headings':     theme('colors.white'),
-            '--tw-prose-links':        theme('colors.violet.400'),
-            '--tw-prose-code':         theme('colors.violet.300'),
+            '--tw-prose-links':        theme('colors.green.400'),
+            '--tw-prose-code':         theme('colors.green.300'),
             '--tw-prose-pre-bg':       theme('colors.zinc.900'),
             '--tw-prose-pre-code':     theme('colors.zinc.100'),
             '--tw-prose-hr':           theme('colors.zinc.700'),
             '--tw-prose-quotes':       theme('colors.zinc.300'),
-            '--tw-prose-quote-borders':theme('colors.violet.500'),
+            '--tw-prose-quote-borders':theme('colors.green.500'),
           },
         },
       }),

@@ -9,7 +9,7 @@ export default function ContactPage() {
   return (
     <div className="mx-auto max-w-2xl px-6 py-24">
       <div className="mb-12">
-        <p className="mb-1 font-mono text-xs text-violet-400 uppercase tracking-widest">Get in touch</p>
+        <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Get in touch</p>
         <h1 className="text-4xl font-bold text-white">Contact</h1>
         <p className="mt-3 text-zinc-400 leading-relaxed">
           I&apos;m currently [open to opportunities / not looking / open to collaborations].{/* TODO */}
@@ -21,10 +21,10 @@ export default function ContactPage() {
       <div className="mb-12 flex flex-col gap-3 sm:flex-row">
         <a
           href="mailto:duchieubui511@gmail.com"   // TODO
-          className="flex-1 rounded-xl border border-[#2A2A2A] bg-[#161616] px-6 py-4 transition-colors hover:border-violet-500 group"
+          className="flex-1 rounded-xl border border-[#1E2733] bg-[#0F141C] px-6 py-4 transition-colors hover:border-green-500 group"
         >
           <p className="font-mono text-xs text-zinc-500 mb-1">Email</p>
-          <p className="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">
+          <p className="text-sm font-medium text-white group-hover:text-green-400 transition-colors">
             duchieubui511@gmail.com {/* TODO */}
           </p>
         </a>
@@ -32,10 +32,10 @@ export default function ContactPage() {
           href="http://www.linkedin.com/in/harry-bui0511"   // TODO
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 rounded-xl border border-[#2A2A2A] bg-[#161616] px-6 py-4 transition-colors hover:border-violet-500 group"
+          className="flex-1 rounded-xl border border-[#1E2733] bg-[#0F141C] px-6 py-4 transition-colors hover:border-green-500 group"
         >
           <p className="font-mono text-xs text-zinc-500 mb-1">LinkedIn</p>
-          <p className="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">
+          <p className="text-sm font-medium text-white group-hover:text-green-400 transition-colors">
             http://www.linkedin.com/in/harry-bui0511 {/* TODO */}
           </p>
         </Link>
@@ -43,16 +43,16 @@ export default function ContactPage() {
           href="https://github.com/hieuhust123"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex-1 rounded-xl border border-[#2A2A2A] bg-[#161616] px-6 py-4 transition-colors hover:border-violet-500 group"
+          className="flex-1 rounded-xl border border-[#1E2733] bg-[#0F141C] px-6 py-4 transition-colors hover:border-green-500 group"
         >
           <p className="font-mono text-xs text-zinc-500 mb-1">GitHub</p>
-          <p className="text-sm font-medium text-white group-hover:text-violet-400 transition-colors">
+          <p className="text-sm font-medium text-white group-hover:text-green-400 transition-colors">
             github.com/hieuhust123
           </p>
         </Link>
       </div>
 
-      <hr className="border-[#2A2A2A] mb-12" />
+      <hr className="border-[#1E2733] mb-12" />
 
       {/* ── Contact form (mailto fallback) ─────────────────────────── */}
       {/*
@@ -73,7 +73,7 @@ export default function ContactPage() {
               type="text"
               required
               placeholder="Your name"
-              className="rounded-lg border border-[#2A2A2A] bg-[#161616] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30"
+              className="rounded-lg border border-[#1E2733] bg-[#0F141C] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-green-500 focus:ring-1 focus:ring-green-500/30"
             />
           </label>
           <label className="flex flex-col gap-1.5">
@@ -83,7 +83,7 @@ export default function ContactPage() {
               type="email"
               required
               placeholder="you@example.com"
-              className="rounded-lg border border-[#2A2A2A] bg-[#161616] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30"
+              className="rounded-lg border border-[#1E2733] bg-[#0F141C] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-green-500 focus:ring-1 focus:ring-green-500/30"
             />
           </label>
         </div>
@@ -94,7 +94,7 @@ export default function ContactPage() {
             name="subject"
             type="text"
             placeholder="What's this about?"
-            className="rounded-lg border border-[#2A2A2A] bg-[#161616] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30"
+            className="rounded-lg border border-[#1E2733] bg-[#0F141C] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-green-500 focus:ring-1 focus:ring-green-500/30"
           />
         </label>
 
@@ -105,13 +105,13 @@ export default function ContactPage() {
             rows={5}
             required
             placeholder="Your message…"
-            className="rounded-lg border border-[#2A2A2A] bg-[#161616] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-violet-500 focus:ring-1 focus:ring-violet-500/30 resize-none"
+            className="rounded-lg border border-[#1E2733] bg-[#0F141C] px-4 py-2.5 text-sm text-white placeholder-zinc-600 outline-none transition-colors focus:border-green-500 focus:ring-1 focus:ring-green-500/30 resize-none"
           />
         </label>
 
         <button
           type="submit"
-          className="self-start rounded-lg bg-violet-600 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/20 transition-all duration-200 hover:bg-violet-500 hover:-translate-y-0.5"
+          className="self-start rounded-lg bg-green-500 px-6 py-2.5 text-sm font-semibold text-[#06210D] shadow-lg shadow-green-500/20 transition-all duration-200 hover:bg-green-400 hover:-translate-y-0.5"
         >
           Send message →
         </button>

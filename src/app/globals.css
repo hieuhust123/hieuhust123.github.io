@@ -12,27 +12,27 @@
   }
 
   body {
-    @apply bg-[#0D0D0D] text-zinc-200 font-sans antialiased;
+    @apply bg-[#0A0E14] text-zinc-200 font-sans antialiased;
   }
 
   /* Custom scrollbar — subtle, on-brand */
   ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { @apply bg-[#0D0D0D]; }
-  ::-webkit-scrollbar-thumb { @apply bg-zinc-700 rounded-full; }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-violet-600; }
+  ::-webkit-scrollbar-track { @apply bg-[#0A0E14]; }
+  ::-webkit-scrollbar-thumb { @apply bg-slate-700 rounded-full; }
+  ::-webkit-scrollbar-thumb:hover { @apply bg-green-500; }
 }
 
 /* ─── Utility: gradient text ────────────────────────────────────────────────── */
 @layer utilities {
   .text-gradient {
-    @apply bg-gradient-to-r from-violet-400 to-indigo-400 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent;
   }
   /* Glowing border used on project cards */
   .card-glow {
-    box-shadow: 0 0 0 1px #2A2A2A;
+    box-shadow: 0 0 0 1px #1E2733;
     transition: box-shadow 0.25s ease;
   }
   .card-glow:hover {
-    box-shadow: 0 0 0 1px #7C3AED, 0 4px 24px rgba(124, 58, 237, 0.15);
+    box-shadow: 0 0 0 1px #34D058, 0 4px 24px rgba(52, 208, 88, 0.18);
   }
 }
