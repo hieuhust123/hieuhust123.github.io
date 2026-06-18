@@ -18,12 +18,16 @@ interface Props {
 //   - For an image: { type: 'image', src: '/projects/<slug>/cover.png', alt: '...' }
 //   - For a video:  { type: 'video', src: '/projects/<slug>/demo.mp4', poster: '/projects/<slug>/poster.png' }
 //   - Leave it out entirely (omit the `media` field) to show the empty placeholder box.
+// `fit` controls how an image sits in the 16:9 box:
+//   'cover' (default) fills and may crop — best for photos/screenshots.
+//   'contain' shows the whole image, letterboxed — best for diagrams/schematics.
 type Media =
-  | { type: 'image'; src: string; alt: string }
+  | { type: 'image'; src: string; alt: string; fit?: 'cover' | 'contain' }
   | { type: 'video'; src: string; poster?: string };
 
 // One image shown inside a write-up section.
-type SectionImage = { src: string; alt: string; caption?: string };
+// `fit` works like the hero's: 'contain' shows the whole image (good for diagrams).
+type SectionImage = { src: string; alt: string; caption?: string; fit?: 'cover' | 'contain' };
 
 // One section of the write-up: a heading, optional paragraphs, and optional images.
 // `images` render as a responsive grid below the paragraphs (1 image = full width).
@@ -97,6 +101,7 @@ const PROJECTS: Record<
       type: 'image',
       src: '/projects/project-two/cover.png',
       alt: 'Block diagram of the FPGA image-processing pipeline: clock generation, VGA signal/image generation, RGB-to-gray, binary threshold, morphological operations, and display',
+      fit: 'contain',
     },
     body: [
       {
@@ -117,6 +122,7 @@ const PROJECTS: Record<
             src: '/projects/project-two/cover.png',
             alt: 'Block diagram of the FPGA image-processing pipeline showing clock generation, VGA signal and image generation, RGB-to-gray with histogram, binary threshold, morphological operations, seven-segment and OLED displays',
             caption: 'System block diagram (modules u1–u8): clocking, VGA generation, grayscale + histogram, thresholding, morphology, and the status displays.',
+            fit: 'contain',
           },
         ],
       },
@@ -172,27 +178,50 @@ const PROJECTS: Record<
       'Designed an 8-bit timer IP in Verilog with three memory-mapped registers (TCR, TDR, TSR), up/down counting, four selectable internal clock sources, and overflow/underflow interrupts, exposed through an AMBA APB slave interface with full PSLVERR-compliant error handling. Verified in QuestaSim with a Makefile-driven, self-checking testbench and 21 directed, constrained-random, and fork-join test cases.',
     tags: ['Verilog', 'APB', 'QuestaSim', 'FSM', 'Verification'],
     date: 'May 2026',
-    githubUrl: '',
+    githubUrl: 'https://github.com/hieuhust123/Timer_full',
     liveUrl: '',
-    // Hero visual. Drop the file in public/projects/project-three/ then this shows it.
-    // A block diagram or a QuestaSim waveform screenshot works best for an RTL project.
+    // Hero visual. Drop the block-diagram image in public/projects/project-three/cover.png
+    // (the top-level block diagram from the design spec works perfectly here).
     media: {
       type: 'image',
       src: '/projects/project-three/cover.png',
-      alt: 'Block diagram of the 8-bit timer IP and its APB slave interface',
+      alt: 'Top-level block diagram of the 8-bit timer IP: Read/Write Control (APB slave), Control Logic, TCNT counter, clock select, overflow/underflow comparator, and the TDR/TCR/TSR registers',
+      fit: 'contain',
     },
     body: [
       {
         heading: 'Overview',
         paragraphs: [
-          'An 8-bit programmable timer IP written in Verilog, exposing its functionality through three memory-mapped registers — a control register (TCR), a data register (TDR), and a status register (TSR). The timer supports both up and down counting, four selectable internal clock sources, and generates overflow/underflow interrupts, making it a reusable building block for an SoC register map.',
+          'An 8-bit programmable timer IP written in Verilog, exposing its functionality through three memory-mapped registers — a control register (TCR), a data register (TDR), and a status register (TSR) — over an AMBA APB slave interface. The timer counts up or down across the full 0x00–0xFF range, selects among four internal clock sources, and raises overflow/underflow status flags, making it a reusable building block for an SoC register map.',
         ],
       },
       {
-        heading: 'Approach',
+        heading: 'Architecture',
         paragraphs: [
-          'The IP is accessed over an AMBA APB slave interface. FSM-controlled read/write logic sequences the APB transfers and returns a PSLVERR error response on invalid address accesses, ensuring full APB protocol compliance across both 8-bit and 16-bit transfers.',
-          'Internally, the timer selects among four internal clock sources and drives the counter in the configured direction, raising overflow or underflow interrupts that are surfaced through the status register.',
+          'The IP is partitioned into five cooperating blocks. The Read/Write Control block is the APB slave front end: it runs the APB state machine, decodes the address, and reads/writes the registers. The Control Logic block is a pure combinational fan-out that decodes the TCR control bits and routes them to the datapath. The Clock Select block muxes one of four external clocks based on the configured source, the Timer Counter (TCNT) does the actual up/down counting, and the Overflow/Underflow Comparator watches the count value to raise event flags.',
+          'A clean clock-domain discipline ties it together: the selected timer clock (TMR_CLK_IN) is not used directly as a clock. Instead, a rising-edge detector (TMR_EDGE = TMR_CLK_IN & ~registered_clk) converts it into a single-cycle enable pulse, so every flip-flop in the counter is clocked by the system PCLK. This keeps the whole design synchronous and avoids a multi-clock counter.',
+        ],
+        images: [
+          {
+            src: '/projects/project-three/cover.png',
+            alt: 'Top-level block diagram showing Read/Write Control (APB slave) on the right, Control Logic on the left, the TCNT counter with overflow/underflow comparators in the centre, a Select-clock mux, and the TDR/TCR/TSR registers',
+            caption: 'Top-level block diagram: APB Read/Write Control, Control Logic, TCNT counter, clock select, overflow/underflow comparator, and the TDR/TCR/TSR register file.',
+            fit: 'contain',
+          },
+        ],
+      },
+      {
+        heading: 'APB Slave & Register Map',
+        paragraphs: [
+          'The APB front end implements the standard IDLE → SETUP → ACCESS state machine, validating the PSEL/PENABLE/PWRITE sequence, generating PREADY (with a configurable WAIT_STATE, default 2), and asserting PSLVERR on illegal access. A register write commits on the final ACCESS-phase PCLK edge when the transfer is valid and the target is writable.',
+          'A 3-bit address bus (PADDR[2:0]) decodes the register map: 0x0 = TDR (R/W), 0x1 = TCR (R/W), 0x2 = TSR (R/W, with write-1-to-clear status bits), 0x3 = TCNT (read-only — writes are ignored), and 0x4–0x7 = reserved, which assert PSLVERR. TDR, TCR, and TSR are stored internally as flip-flops; TCNT is read back live through a dedicated read path.',
+        ],
+      },
+      {
+        heading: 'Counter & Status Behaviour',
+        paragraphs: [
+          'TCR drives the datapath directly: TCR[7] loads the TDR preset into TCNT, TCR[5] selects direction (0 = up, 1 = down), TCR[4] enables counting, and TCR[1:0] selects the clock source — one of four PCLK divisions (PCLK/2, /4, /8, /16). The counter only updates when it is enabled and a TMR_EDGE pulse arrives; otherwise it holds. Asserting load for a single cycle preloads the start value, then counting resumes from there.',
+          'The comparator raises TMR_OVF the cycle before the counter wraps from 0xFF→0x00 (up-counting) and TMR_UDF the cycle before 0x00→0xFF (down-counting). These combinational pulses are latched into the sticky, hardware-set / software-cleared (W1C) status bits TSR[0] (OVF) and TSR[1] (UDF) in the Read/Write Control block, so software sees the event until it explicitly clears it.',
         ],
       },
       {
@@ -310,7 +339,7 @@ export default function ProjectDetailPage({ params }: Props) {
             src={project.media.src}
             alt={project.media.alt}
             fill
-            className="object-cover"
+            className={project.media.fit === 'contain' ? 'object-contain' : 'object-cover'}
             sizes="(max-width: 768px) 100vw, 768px"
           />
         ) : project.media?.type === 'video' ? (
@@ -354,7 +383,7 @@ export default function ProjectDetailPage({ params }: Props) {
                         src={img.src}
                         alt={img.alt}
                         fill
-                        className="object-cover"
+                        className={img.fit === 'contain' ? 'object-contain' : 'object-cover'}
                         sizes="(max-width: 640px) 100vw, 384px"
                       />
                     </div>
