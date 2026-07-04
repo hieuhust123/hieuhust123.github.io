@@ -20,6 +20,8 @@ interface BlogPost {
   summary: string;
   slug: string;          // links to /research/[slug]
   tags: string[];
+  label?: string;        // badge text (defaults to "Write-up"); e.g. "Research"
+  href?: string;         // overrides the "Read more" link (defaults to /research/[slug])
 }
 
 type ResearchItem = Publication | BlogPost;
@@ -28,32 +30,15 @@ type ResearchItem = Publication | BlogPost;
 
 const RESEARCH_ITEMS: ResearchItem[] = [
   {
-    type: 'publication',
-    title: 'Your Paper Title Here',
-    authors: 'Nguyen, K., Co-Author, A.',
-    venue: 'Journal / Conference Name, Vol. X, 2024',
-    year: 2024,
-    abstract:
-      'A 2–3 sentence abstract summarising the contribution, methodology, and key findings of the paper.',
-    pdfUrl: '/research/paper-one.pdf',   // place PDF in /public/research/
-    doiUrl: 'https://doi.org/10.xxxx/xxxxx',
-  },
-  {
     type: 'post',
-    title: 'Blog Post: A Deep Dive Into [Topic]',
-    date: '2025-03-15',
+    label: 'Research',
+    title: 'Training-Efficient Transfer Learning for Sparse Ray-Traced Neural Networks',
+    date: '2026-07-01',
     summary:
-      'A technical write-up exploring [topic]. Covers implementation details, benchmarks, and lessons learned.',
-    slug: 'deep-dive-topic',
-    tags: ['Systems', 'Performance', 'Go'],
-  },
-  {
-    type: 'post',
-    title: 'Blog Post: Lessons from Building [Feature]',
-    date: '2024-10-01',
-    summary: 'What I learned designing and shipping [feature] at scale — architecture, trade-offs, and regrets.',
-    slug: 'lessons-building-feature',
-    tags: ['Architecture', 'TypeScript'],
+      'Ongoing research on training a hybrid CNN + sparse ray-traced neural-network classifier faster: grow the model in stages and preserve every learned weight across each step, aiming to reach the same accuracy in fewer epochs. Includes a custom Rust/CUDA operation that grows the network while keeping its learned connections intact, and a generic per-stage stopping rule.',
+    slug: 'cnn-raybnn-transfer-learning',
+    href: '/projects/cnn-raybnn-transfer-learning',
+    tags: ['Deep Learning', 'Transfer Learning', 'PyTorch', 'Rust', 'CUDA'],
   },
 ];
 
@@ -107,7 +92,7 @@ function BlogCard({ item }: { item: BlogPost }) {
   return (
     <article className="rounded-xl border border-[#1E2733] bg-[#0F141C] p-6 transition-colors hover:border-green-500/40">
       <span className="mb-2 inline-block rounded-full bg-[#0F141C] px-2.5 py-0.5 font-mono text-xs text-zinc-400 border border-[#1E2733]">
-        Write-up · {formattedDate}
+        {item.label ?? 'Write-up'} · {formattedDate}
       </span>
       <h2 className="mt-1 text-lg font-semibold text-white">{item.title}</h2>
       <p className="mt-2 text-sm text-zinc-400 leading-relaxed">{item.summary}</p>
@@ -120,7 +105,7 @@ function BlogCard({ item }: { item: BlogPost }) {
           ))}
         </ul>
         <a
-          href={`/research/${item.slug}`}
+          href={item.href ?? `/research/${item.slug}`}
           className="text-sm text-green-400 hover:text-green-300 transition-colors"
         >
           Read more →
@@ -140,9 +125,9 @@ export default function ResearchPage() {
     <div className="mx-auto max-w-4xl px-6 py-24">
       <div className="mb-14">
         <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">Research</p>
-        <h1 className="text-4xl font-bold text-white">Publications & Writing</h1>
+        <h1 className="text-4xl font-bold text-white">Research &amp; Writing</h1>
         <p className="mt-3 max-w-lg text-zinc-400">
-          Peer-reviewed work and technical writing on topics I&apos;m thinking about.
+          Ongoing research and technical writing. Currently focused on training-efficient machine learning.
         </p>
       </div>
 
@@ -161,7 +146,7 @@ export default function ResearchPage() {
       {/* Blog posts */}
       {posts.length > 0 && (
         <section>
-          <h2 className="mb-6 text-xl font-semibold text-white">Technical Writing</h2>
+          <h2 className="mb-6 text-xl font-semibold text-white">Current Research</h2>
           <div className="flex flex-col gap-4">
             {posts.map((item) => (
               <BlogCard key={item.slug} item={item} />

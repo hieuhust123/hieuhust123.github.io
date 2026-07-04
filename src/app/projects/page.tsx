@@ -5,6 +5,13 @@ import ProjectCard, { type ProjectCardProps } from '@/components/ProjectCard';
 // with gray-matter + fs at build time.
 const ALL_PROJECTS: ProjectCardProps[] = [
   {
+    slug: 'cnn-raybnn-transfer-learning',
+    title: 'Training-Efficient Transfer Learning for Sparse Ray-Traced Neural Networks',
+    summary: 'Ongoing research on training a hybrid CNN + sparse ray-traced neural-network classifier faster: grow the model in stages and carry every learned weight across each step, aiming to reach the same accuracy in fewer epochs. Built in PyTorch with a custom Rust/CUDA network-surgery extension.',
+    tags: ['Deep Learning', 'Transfer Learning', 'PyTorch', 'Rust', 'CUDA'],
+    media: { type: 'image', src: '/projects/cnn-raybnn-transfer-learning/cover.png', alt: 'Progressive-growth transfer learning: a network grown across three stages while preserving learned weights' },
+  },
+  {
     slug: 'project-one',
     title: 'Hardware Accelerator in SystemC: Diffie-Hellman Key Exchange',
     summary: 'A clocked SystemC hardware accelerator offloading the digit-division step of a Diffie-Hellman key exchange — a structural datapath driven by a Moore FSM with a custom enable/done HW/SW handshake.',
