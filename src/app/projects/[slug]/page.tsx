@@ -55,6 +55,49 @@ const PROJECTS: Record<
     body: Section[];
   }
 > = {
+  'cnn-raybnn-transfer-learning': {
+    title: 'Training-Efficient Transfer Learning for Sparse Ray-Traced Neural Networks',
+    summary:
+      'Ongoing research on training a hybrid CNN + sparse ray-traced neural-network image classifier faster. The idea: instead of training the full-size model from scratch, grow it in stages and carry every learned weight across each growth step — a warm start that lets the model reach the same accuracy in fewer epochs.',
+    tags: ['Deep Learning', 'Transfer Learning', 'PyTorch', 'Rust', 'CUDA', 'ArrayFire'],
+    date: '2026 — ongoing',
+    githubUrl: '',
+    liveUrl: '',
+    media: {
+      type: 'image',
+      src: '/projects/cnn-raybnn-transfer-learning/cover.png',
+      alt: 'Progressive-growth transfer learning: a network grown across three stages while preserving the weights learned so far',
+      fit: 'contain',
+    },
+    body: [
+      {
+        heading: 'Overview',
+        paragraphs: [
+          'Modern image classifiers built on a CNN feature extractor feeding a large sparse neural network are expensive to train: the usual practice is to build the full-size model and train it from scratch until it converges. This project asks a simpler question — can we reach the same accuracy for less compute by growing the model progressively?',
+          'The approach is a form of transfer learning across model sizes. Training starts with a smaller network, then grows it in stages; at each step the weights learned so far are preserved as an initialization and the whole model is retrained jointly. Early stages are cheap because the model is small, and later stages start warm rather than from random weights.',
+        ],
+      },
+      {
+        heading: 'Approach',
+        paragraphs: [
+          'Each growth step widens both the CNN feature width and the sparse network in tandem, and — crucially — keeps what was already learned. On the CNN side, existing filters are copied forward and only the new filters are freshly initialized. On the sparse-network side, an append-only surgery grows the input dimension while keeping the existing input connections intact, rather than rebuilding the input layer from scratch (which would discard everything it had learned).',
+          'To make the comparison fair and reproducible, each stage stops training by a single generic rule — halt when validation loss stops meaningfully improving — instead of a hand-tuned epoch count. This gives every stage exactly as much training as it needs and makes the efficiency measurement honest rather than tuned.',
+        ],
+      },
+      {
+        heading: 'Implementation',
+        paragraphs: [
+          'The CNN and the end-to-end training loop are written in PyTorch. The sparse ray-traced network runs through a custom Rust extension (PyO3 / maturin) over the ArrayFire CUDA backend; the weight-preserving growth operation is implemented at that level so that connections and their learned weights survive the surgery bit-for-bit. Experiments run on image-classification benchmarks on a GPU cluster (H100) via SLURM.',
+        ],
+      },
+      {
+        heading: 'Status & what I am exploring',
+        paragraphs: [
+          'This is active research. The current focus is an honest, paired comparison: does staged growth with weight preservation actually cut training time at equal accuracy, versus simply training the full-size model directly? The emphasis is on a correct method and a fair measurement rather than a headline number — including checking that any speedup is not an artifact of over- or under-fitting.',
+        ],
+      },
+    ],
+  },
   'project-one': {
     title: 'Hardware Accelerator in SystemC: Diffie-Hellman Key Exchange',
     summary:
