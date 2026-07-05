@@ -22,9 +22,8 @@ export default function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  // Force dark mode globally by adding the 'dark' class on <html>
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body className="min-h-screen flex flex-col">
         <Navbar />
         {/* Main content grows to fill available vertical space */}

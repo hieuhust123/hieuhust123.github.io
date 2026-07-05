@@ -32,11 +32,11 @@ export default function ProjectsPage() {
     <div className="mx-auto max-w-6xl px-6 py-24">
       {/* Page header */}
       <div className="mb-14">
-        <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">
+        <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">
           Portfolio
         </p>
-        <h1 className="text-4xl font-bold text-white">Projects</h1>
-        <p className="mt-3 max-w-lg text-zinc-400">
+        <h1 className="text-4xl font-bold text-zinc-900">Projects</h1>
+        <p className="mt-3 max-w-lg text-zinc-600">
           A collection of things I&apos;ve built — from side experiments to production systems.
         </p>
       </div>

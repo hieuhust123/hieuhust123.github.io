@@ -17,11 +17,11 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#1E2733] bg-[#0A0E14]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#E5E5E5] bg-[#FAFAFA]/80 backdrop-blur-md">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
         {/* Logo / wordmark */}
-        <Link href="/" className="font-mono text-sm font-medium text-white tracking-wider hover:text-green-400 transition-colors">
+        <Link href="/" className="font-mono text-sm font-medium text-zinc-900 tracking-wider hover:text-green-700 transition-colors">
           Harry.Bui
         </Link>
 
@@ -35,7 +35,7 @@ export default function Navbar() {
                   href={href}
                   className={clsx(
                     'relative text-sm font-medium transition-colors duration-200',
-                    isActive ? 'text-green-400' : 'text-zinc-400 hover:text-white'
+                    isActive ? 'text-green-700' : 'text-zinc-600 hover:text-zinc-900'
                   )}
                 >
                   {label}
@@ -43,7 +43,7 @@ export default function Navbar() {
                   {isActive && (
                     <motion.span
                       layoutId="nav-underline"
-                      className="absolute -bottom-1 left-0 h-px w-full bg-green-400"
+                      className="absolute -bottom-1 left-0 h-px w-full bg-green-700"
                     />
                   )}
                 </Link>
@@ -57,12 +57,14 @@ export default function Navbar() {
           aria-label="Open menu"
           className="flex md:hidden flex-col gap-1.5 p-2"
         >
-          <span className="h-px w-6 bg-zinc-400" />
-          <span className="h-px w-6 bg-zinc-400" />
-          <span className="h-px w-4 bg-zinc-400" />
+          <span className="h-px w-6 bg-zinc-700" />
+          <span className="h-px w-6 bg-zinc-700" />
+          <span className="h-px w-4 bg-zinc-700" />
         </button>
 
       </nav>
     </header>
   );
 }
+
+

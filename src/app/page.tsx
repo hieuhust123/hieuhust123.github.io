@@ -65,7 +65,7 @@ export default function HomePage() {
         <motion.p
           {...fadeUp}
           transition={{ duration: 0.4, delay: 0.05 }}
-          className="mb-4 font-mono text-sm text-green-400"
+          className="mb-4 font-mono text-sm text-green-700"
         >
           Hi, I&apos;m
         </motion.p>
@@ -74,7 +74,7 @@ export default function HomePage() {
         <motion.h1
           {...fadeUp}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl font-bold tracking-tight text-white sm:text-6xl lg:text-7xl"
+          className="text-5xl font-bold tracking-tight text-zinc-900 sm:text-6xl lg:text-7xl"
         >
           Harry Bui
         </motion.h1>
@@ -92,7 +92,7 @@ export default function HomePage() {
         <motion.p
           {...fadeUp}
           transition={{ duration: 0.5, delay: 0.3 }}
-          className="mt-6 max-w-xl text-base leading-relaxed text-zinc-400 sm:text-lg"
+          className="mt-6 max-w-xl text-base leading-relaxed text-zinc-600 sm:text-lg"
         >
           {/* TODO: replace with your actual summary */}
           I design and implement hardware systems and ML pipelines across the full stack — from FPGA-based image processing and chip physical design to deep learning research on HPC clusters. Currently pursuing an MASc in ECE at UVic, with industry experience in semiconductor digital design and embedded systems.
@@ -106,13 +106,13 @@ export default function HomePage() {
         >
           <Link
             href="/projects"
-            className="rounded-lg bg-green-500 px-5 py-2.5 text-sm font-semibold text-[#06210D] shadow-lg shadow-green-500/20 transition-all duration-200 hover:bg-green-400 hover:-translate-y-0.5"
+            className="rounded-lg bg-green-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-700/20 transition-all duration-200 hover:bg-green-800 hover:-translate-y-0.5"
           >
             View Projects
           </Link>
           <Link
             href="/resume"
-            className="rounded-lg border border-[#1E2733] px-5 py-2.5 text-sm font-semibold text-zinc-300 transition-all duration-200 hover:border-green-500 hover:text-white hover:-translate-y-0.5"
+            className="rounded-lg border border-[#E5E5E5] px-5 py-2.5 text-sm font-semibold text-zinc-700 transition-all duration-200 hover:border-green-700 hover:text-zinc-900 hover:-translate-y-0.5"
           >
             Resume
           </Link>
@@ -123,20 +123,20 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════════
           FEATURED PROJECTS SECTION
       ════════════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[#1E2733] bg-[#0A0E14] py-24">
+      <section className="border-t border-[#E5E5E5] bg-[#FAFAFA] py-24">
         <div className="mx-auto max-w-6xl px-6">
 
           {/* Section header */}
           <div className="mb-12 flex items-end justify-between">
             <div>
-              <p className="mb-1 font-mono text-xs text-green-400 uppercase tracking-widest">
+              <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">
                 Selected work
               </p>
-              <h2 className="text-3xl font-bold text-white">Featured Projects</h2>
+              <h2 className="text-3xl font-bold text-zinc-900">Featured Projects</h2>
             </div>
             <Link
               href="/projects"
-              className="hidden text-sm text-zinc-500 transition-colors hover:text-green-400 sm:block"
+              className="hidden text-sm text-zinc-500 transition-colors hover:text-green-700 sm:block"
             >
               All projects →
             </Link>
@@ -155,12 +155,12 @@ export default function HomePage() {
       {/* ════════════════════════════════════════════════════════════════
           QUICK ABOUT / SKILLS STRIP (optional teaser)
       ════════════════════════════════════════════════════════════════ */}
-      <section className="border-t border-[#1E2733] py-24">
+      <section className="border-t border-[#E5E5E5] py-24">
         <div className="mx-auto max-w-6xl px-6 text-center">
-          <p className="mb-2 font-mono text-xs text-green-400 uppercase tracking-widest">
+          <p className="mb-2 font-mono text-xs text-green-700 uppercase tracking-widest">
             Core skills
           </p>
-          <h2 className="mb-10 text-3xl font-bold text-white">What I work with</h2>
+          <h2 className="mb-10 text-3xl font-bold text-zinc-900">What I work with</h2>
 
           {/* Skill tag cloud — replace / extend as needed */}
           <ul className="flex flex-wrap justify-center gap-3">
@@ -171,7 +171,7 @@ export default function HomePage() {
             ].map((skill) => (
               <li
                 key={skill}
-                className="rounded-full border border-[#1E2733] bg-[#0F141C] px-4 py-1.5 font-mono text-sm text-zinc-300 transition-colors hover:border-green-500 hover:text-green-300"
+                className="rounded-full border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-1.5 font-mono text-sm text-zinc-700 transition-colors hover:border-green-700 hover:text-green-700"
               >
                 {skill}
               </li>

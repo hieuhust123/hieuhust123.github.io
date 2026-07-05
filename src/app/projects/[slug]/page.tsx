@@ -264,25 +264,25 @@ export default function ProjectDetailPage({ params }: Props) {
       {/* ── Back navigation ─────────────────────────────────────────── */}
       <Link
         href="/projects"
-        className="mb-10 inline-flex items-center gap-2 font-mono text-sm text-zinc-500 transition-colors hover:text-green-400"
+        className="mb-10 inline-flex items-center gap-2 font-mono text-sm text-zinc-500 transition-colors hover:text-green-700"
       >
         ← Back to projects
       </Link>
 
       {/* ── Article header ──────────────────────────────────────────── */}
-      <header className="mb-12 border-b border-[#1E2733] pb-10">
+      <header className="mb-12 border-b border-[#E5E5E5] pb-10">
         {/* Breadcrumb slug */}
-        <p className="mb-3 font-mono text-xs text-green-400 uppercase tracking-widest">
+        <p className="mb-3 font-mono text-xs text-green-700 uppercase tracking-widest">
           {slug}
         </p>
 
         {/* Title */}
-        <h1 className="text-4xl font-bold leading-tight text-white sm:text-5xl">
+        <h1 className="text-4xl font-bold leading-tight text-zinc-900 sm:text-5xl">
           {project.title}
         </h1>
 
         {/* One-liner summary */}
-        <p className="mt-4 text-lg text-zinc-400">
+        <p className="mt-4 text-lg text-zinc-600">
           {project.summary}
         </p>
 
@@ -293,7 +293,7 @@ export default function ProjectDetailPage({ params }: Props) {
             {project.tags.map((tag) => (
               <li
                 key={tag}
-                className="rounded-md bg-[#0F141C] px-2.5 py-1 font-mono text-xs text-green-300 border border-[#1E2733]"
+                className="rounded-md bg-[#FFFFFF] px-2.5 py-1 font-mono text-xs text-green-700 border border-[#E5E5E5]"
               >
                 {tag}
               </li>
@@ -313,7 +313,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg border border-[#1E2733] px-4 py-2 text-sm text-zinc-400 transition-colors hover:border-green-500 hover:text-white"
+                className="rounded-lg border border-[#E5E5E5] px-4 py-2 text-sm text-zinc-600 transition-colors hover:border-green-700 hover:text-zinc-900"
               >
                 View on GitHub →
               </a>
@@ -323,7 +323,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.liveUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg bg-green-500/10 border border-green-500/30 px-4 py-2 text-sm text-green-400 transition-colors hover:bg-green-500/20"
+                className="rounded-lg bg-green-700/10 border border-green-700/30 px-4 py-2 text-sm text-green-700 transition-colors hover:bg-green-700/20"
               >
                 Live Demo →
               </a>
@@ -333,7 +333,7 @@ export default function ProjectDetailPage({ params }: Props) {
       </header>
 
       {/* ── Hero media ──────────────────────────────────────────────── */}
-      <div className="relative mb-12 overflow-hidden rounded-xl border border-[#1E2733] aspect-video bg-[#0F141C] flex items-center justify-center">
+      <div className="relative mb-12 overflow-hidden rounded-xl border border-[#E5E5E5] aspect-video bg-[#FFFFFF] flex items-center justify-center">
         {project.media?.type === 'image' ? (
           <Image
             src={project.media.src}
@@ -359,11 +359,11 @@ export default function ProjectDetailPage({ params }: Props) {
       </div>
 
       {/* ── Long-form content ───────────────────────────────────────── */}
-      <article className="prose prose-invert prose-zinc max-w-none
+      <article className="prose prose-zinc max-w-none
                           prose-headings:font-semibold
-                          prose-a:text-green-400 prose-a:no-underline hover:prose-a:underline
-                          prose-code:font-mono prose-code:text-green-300
-                          prose-pre:border prose-pre:border-[#1E2733] prose-pre:rounded-xl">
+                          prose-a:text-green-700 prose-a:no-underline hover:prose-a:underline
+                          prose-code:font-mono prose-code:text-green-700
+                          prose-pre:border prose-pre:border-[#E5E5E5] prose-pre:rounded-xl">
         {project.body.map((section) => (
           <section key={section.heading}>
             <h2>{section.heading}</h2>
@@ -378,7 +378,7 @@ export default function ProjectDetailPage({ params }: Props) {
               >
                 {section.images.map((img) => (
                   <figure key={img.src} className="m-0">
-                    <div className="relative aspect-video overflow-hidden rounded-lg border border-[#1E2733] bg-[#0F141C]">
+                    <div className="relative aspect-video overflow-hidden rounded-lg border border-[#E5E5E5] bg-[#FFFFFF]">
                       <Image
                         src={img.src}
                         alt={img.alt}

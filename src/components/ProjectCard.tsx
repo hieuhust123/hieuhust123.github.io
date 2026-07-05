@@ -29,10 +29,10 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-60px' }}
       transition={{ duration: 0.4, ease: 'easeOut' }}
-      className="group card-glow relative flex flex-col rounded-xl bg-[#0F141C] overflow-hidden transition-colors hover:bg-[#141B26] focus-within:ring-2 focus-within:ring-green-500"
+      className="group card-glow relative flex flex-col rounded-xl bg-[#FFFFFF] overflow-hidden transition-colors hover:bg-[#F3F4F6] focus-within:ring-2 focus-within:ring-green-700"
     >
       {/* ── Media area (image or video) ───────────────────────────────── */}
-      <div className="relative aspect-video w-full bg-[#0F141C] overflow-hidden">
+      <div className="relative aspect-video w-full bg-[#FFFFFF] overflow-hidden">
         {media.type === 'image' ? (
           <Image
             src={media.src}
@@ -62,15 +62,15 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
 
       {/* ── Card body ─────────────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="text-base font-semibold text-white leading-snug">{title}</h3>
-        <p className="text-sm text-zinc-400 leading-relaxed flex-1">{summary}</p>
+        <h3 className="text-base font-semibold text-zinc-900 leading-snug">{title}</h3>
+        <p className="text-sm text-zinc-600 leading-relaxed flex-1">{summary}</p>
 
         {/* Tech tags */}
         <ul className="flex flex-wrap gap-2" aria-label="Technologies used">
           {tags.map((tag) => (
             <li
               key={tag}
-              className="rounded-md bg-[#0F141C] px-2 py-0.5 font-mono text-xs text-green-300 border border-[#1E2733]"
+              className="rounded-md bg-[#FFFFFF] px-2 py-0.5 font-mono text-xs text-green-700 border border-[#E5E5E5]"
             >
               {tag}
             </li>
@@ -82,7 +82,7 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
         <Link
           href={`/projects/${slug}`}
           aria-label={`View project: ${title}`}
-          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-400 transition-colors group-hover:text-green-300 focus:outline-none after:absolute after:inset-0 after:rounded-xl"
+          className="mt-2 inline-flex items-center gap-1.5 text-sm font-medium text-green-700 transition-colors group-hover:text-green-700 focus:outline-none after:absolute after:inset-0 after:rounded-xl"
         >
           View details
           <span aria-hidden className="transition-transform group-hover:translate-x-0.5">→</span>

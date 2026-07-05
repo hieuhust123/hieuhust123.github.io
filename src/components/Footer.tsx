@@ -32,7 +32,7 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="border-t border-[#1E2733] bg-[#0A0E14]">
+    <footer className="border-t border-[#E5E5E5] bg-[#FAFAFA]">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
 
         {/* Left: copyright */}
@@ -47,7 +47,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="text-zinc-500 transition-colors hover:text-white"
+            className="text-zinc-500 transition-colors hover:text-zinc-900"
           >
             <GitHubIcon />
           </Link>
@@ -58,7 +58,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="text-zinc-500 transition-colors hover:text-white"
+            className="text-zinc-500 transition-colors hover:text-zinc-900"
           >
             <LinkedInIcon />
           </Link>
@@ -67,7 +67,7 @@ export default function Footer() {
           <Link
             href="mailto:duchieubui511@gmail.com"
             aria-label="Email"
-            className="text-zinc-500 transition-colors hover:text-white"
+            className="text-zinc-500 transition-colors hover:text-zinc-900"
           >
             <EmailIcon />
           </Link>
