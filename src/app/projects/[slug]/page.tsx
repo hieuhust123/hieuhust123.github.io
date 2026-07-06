@@ -136,7 +136,7 @@ const PROJECTS: Record<
       'A real-time image processing pipeline on a Nexys A7 (Artix-7) FPGA that captures live camera input, converts it to grayscale, applies adjustable binary thresholding, and runs hardware morphological operations — erosion, dilation, opening, and closing — with the processed frames streamed to a VGA display. Written in VHDL and built in Vivado.',
     tags: ['VHDL', 'FPGA', 'Nexys A7', 'Vivado', 'VGA', 'Image Processing'],
     date: 'April 2025',
-    githubUrl: '', // No public repo yet — paste the URL here to show the GitHub button.
+    githubUrl: 'https://github.com/hieuhust123/fpga-image-processing',
     liveUrl: '',
     // Hero visual. The architecture flowchart (ECE543_flowchart.png) makes a strong hero.
     // Drop a file in public/projects/project-two/ and update the src/alt below.
