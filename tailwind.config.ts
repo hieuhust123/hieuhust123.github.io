@@ -22,9 +22,12 @@ const config: Config = {
           card:    '#0F141C', // card / panel background
           border:  '#1E2733', // subtle slate borders
         },
+        // Heading/body near-black — warmer than Tailwind's zinc-900
+        ink: '#1A1A1A',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', 'sans-serif'],
+        serif: ['Lora', 'Georgia', 'serif'],
         mono: ['JetBrains Mono', 'Fira Code', 'monospace'],
       },
       typography: (theme: (path: string) => string) => ({

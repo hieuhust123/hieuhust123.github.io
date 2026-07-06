@@ -42,7 +42,7 @@ export default function ProjectsPage() {
         <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">
           Portfolio
         </p>
-        <h1 className="text-4xl font-bold text-zinc-900">Projects</h1>
+        <h1 className="font-serif text-4xl font-bold text-ink">Projects</h1>
         <p className="mt-3 max-w-lg text-zinc-600">
           A collection of things I&apos;ve built — from side experiments to production systems.
         </p>

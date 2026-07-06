@@ -74,7 +74,7 @@ export default function HomePage() {
         <motion.h1
           {...fadeUp}
           transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-5xl font-bold tracking-tight text-zinc-900 sm:text-6xl lg:text-7xl"
+          className="font-serif text-5xl font-bold tracking-tight text-ink sm:text-6xl lg:text-7xl"
         >
           Harry Bui
         </motion.h1>
@@ -112,7 +112,7 @@ export default function HomePage() {
           </Link>
           <Link
             href="/resume"
-            className="rounded-lg border border-[#E5E5E5] px-5 py-2.5 text-sm font-semibold text-zinc-700 transition-all duration-200 hover:border-green-700 hover:text-zinc-900 hover:-translate-y-0.5"
+            className="rounded-lg border border-[#E5E5E5] px-5 py-2.5 text-sm font-semibold text-zinc-700 transition-all duration-200 hover:border-green-700 hover:text-ink hover:-translate-y-0.5"
           >
             Resume
           </Link>
@@ -132,7 +132,7 @@ export default function HomePage() {
               <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">
                 Selected work
               </p>
-              <h2 className="text-3xl font-bold text-zinc-900">Featured Projects</h2>
+              <h2 className="font-serif text-3xl font-bold text-ink">Featured Projects</h2>
             </div>
             <Link
               href="/projects"
@@ -160,7 +160,7 @@ export default function HomePage() {
           <p className="mb-2 font-mono text-xs text-green-700 uppercase tracking-widest">
             Core skills
           </p>
-          <h2 className="mb-10 text-3xl font-bold text-zinc-900">What I work with</h2>
+          <h2 className="mb-10 font-serif text-3xl font-bold text-ink">What I work with</h2>
 
           {/* Skill tag cloud — replace / extend as needed */}
           <ul className="flex flex-wrap justify-center gap-3">

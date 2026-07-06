@@ -52,7 +52,7 @@ function PublicationCard({ item }: { item: Publication }) {
           <span className="mb-2 inline-block rounded-full bg-green-700/10 px-2.5 py-0.5 font-mono text-xs text-green-700 border border-green-700/20">
             Publication · {item.year}
           </span>
-          <h2 className="mt-1 text-lg font-semibold text-zinc-900">{item.title}</h2>
+          <h2 className="mt-1 text-lg font-semibold text-ink">{item.title}</h2>
           <p className="mt-1 font-mono text-xs text-zinc-500">{item.authors}</p>
           <p className="mt-0.5 font-mono text-xs text-zinc-600 italic">{item.venue}</p>
           <p className="mt-3 text-sm text-zinc-600 leading-relaxed">{item.abstract}</p>
@@ -64,7 +64,7 @@ function PublicationCard({ item }: { item: Publication }) {
             href={item.pdfUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-zinc-600 transition-colors hover:border-green-700 hover:text-zinc-900"
+            className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-zinc-600 transition-colors hover:border-green-700 hover:text-ink"
           >
             PDF ↓
           </a>
@@ -74,7 +74,7 @@ function PublicationCard({ item }: { item: Publication }) {
             href={item.doiUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-zinc-600 transition-colors hover:border-green-700 hover:text-zinc-900"
+            className="rounded-md border border-[#E5E5E5] px-3 py-1.5 text-xs text-zinc-600 transition-colors hover:border-green-700 hover:text-ink"
           >
             DOI →
           </a>
@@ -94,7 +94,7 @@ function BlogCard({ item }: { item: BlogPost }) {
       <span className="mb-2 inline-block rounded-full bg-[#FFFFFF] px-2.5 py-0.5 font-mono text-xs text-zinc-600 border border-[#E5E5E5]">
         {item.label ?? 'Write-up'} · {formattedDate}
       </span>
-      <h2 className="mt-1 text-lg font-semibold text-zinc-900">
+      <h2 className="mt-1 text-lg font-semibold text-ink">
         <a href={item.href ?? `/research/${item.slug}`} className="transition-colors hover:text-green-700">
           {item.title}
         </a>
@@ -129,7 +129,7 @@ export default function ResearchPage() {
     <div className="mx-auto max-w-4xl px-6 py-24">
       <div className="mb-14">
         <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">Research</p>
-        <h1 className="text-4xl font-bold text-zinc-900">Research &amp; Writing</h1>
+        <h1 className="font-serif text-4xl font-bold text-ink">Research &amp; Writing</h1>
         <p className="mt-3 max-w-lg text-zinc-600">
           Ongoing research and technical writing. Currently focused on training-efficient machine learning.
         </p>
@@ -138,7 +138,7 @@ export default function ResearchPage() {
       {/* Publications */}
       {publications.length > 0 && (
         <section className="mb-16">
-          <h2 className="mb-6 text-xl font-semibold text-zinc-900">Publications</h2>
+          <h2 className="mb-6 font-serif text-xl font-semibold text-ink">Publications</h2>
           <div className="flex flex-col gap-4">
             {publications.map((item) => (
               <PublicationCard key={item.title} item={item} />
@@ -150,7 +150,7 @@ export default function ResearchPage() {
       {/* Blog posts */}
       {posts.length > 0 && (
         <section>
-          <h2 className="mb-6 text-xl font-semibold text-zinc-900">Current Research</h2>
+          <h2 className="mb-6 font-serif text-xl font-semibold text-ink">Current Research</h2>
           <div className="flex flex-col gap-4">
             {posts.map((item) => (
               <BlogCard key={item.slug} item={item} />

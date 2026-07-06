@@ -62,7 +62,7 @@ export default function ProjectCard({ slug, title, summary, tags, media }: Proje
 
       {/* ── Card body ─────────────────────────────────────────────────── */}
       <div className="flex flex-1 flex-col gap-3 p-5">
-        <h3 className="text-base font-semibold text-zinc-900 leading-snug">{title}</h3>
+        <h3 className="text-base font-semibold text-ink leading-snug">{title}</h3>
         <p className="text-sm text-zinc-600 leading-relaxed flex-1">{summary}</p>
 
         {/* Tech tags */}

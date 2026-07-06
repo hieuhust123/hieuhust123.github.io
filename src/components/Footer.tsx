@@ -47,7 +47,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="GitHub"
-            className="text-zinc-500 transition-colors hover:text-zinc-900"
+            className="text-zinc-500 transition-colors hover:text-ink"
           >
             <GitHubIcon />
           </Link>
@@ -58,7 +58,7 @@ export default function Footer() {
             target="_blank"
             rel="noopener noreferrer"
             aria-label="LinkedIn"
-            className="text-zinc-500 transition-colors hover:text-zinc-900"
+            className="text-zinc-500 transition-colors hover:text-ink"
           >
             <LinkedInIcon />
           </Link>
@@ -67,7 +67,7 @@ export default function Footer() {
           <Link
             href="mailto:duchieubui511@gmail.com"
             aria-label="Email"
-            className="text-zinc-500 transition-colors hover:text-zinc-900"
+            className="text-zinc-500 transition-colors hover:text-ink"
           >
             <EmailIcon />
           </Link>

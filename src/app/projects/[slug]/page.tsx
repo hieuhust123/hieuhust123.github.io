@@ -320,7 +320,7 @@ export default function ProjectDetailPage({ params }: Props) {
         </p>
 
         {/* Title */}
-        <h1 className="text-4xl font-bold leading-tight text-zinc-900 sm:text-5xl">
+        <h1 className="font-serif text-4xl font-bold leading-tight text-ink sm:text-5xl">
           {project.title}
         </h1>
 
@@ -356,7 +356,7 @@ export default function ProjectDetailPage({ params }: Props) {
                 href={project.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="rounded-lg border border-[#E5E5E5] px-4 py-2 text-sm text-zinc-600 transition-colors hover:border-green-700 hover:text-zinc-900"
+                className="rounded-lg border border-[#E5E5E5] px-4 py-2 text-sm text-zinc-600 transition-colors hover:border-green-700 hover:text-ink"
               >
                 View on GitHub →
               </a>

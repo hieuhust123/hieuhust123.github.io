@@ -21,7 +21,7 @@ export default function Navbar() {
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
         {/* Logo / wordmark */}
-        <Link href="/" className="font-mono text-sm font-medium text-zinc-900 tracking-wider hover:text-green-700 transition-colors">
+        <Link href="/" className="font-mono text-sm font-medium text-ink tracking-wider hover:text-green-700 transition-colors">
           Harry.Bui
         </Link>
 
@@ -35,7 +35,7 @@ export default function Navbar() {
                   href={href}
                   className={clsx(
                     'relative text-sm font-medium transition-colors duration-200',
-                    isActive ? 'text-green-700' : 'text-zinc-600 hover:text-zinc-900'
+                    isActive ? 'text-green-700' : 'text-zinc-600 hover:text-ink'
                   )}
                 >
                   {label}

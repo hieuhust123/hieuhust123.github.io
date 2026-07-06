@@ -9,7 +9,7 @@ export default function ResumePage() {
       <div className="mb-12 flex items-start justify-between gap-4 flex-wrap">
         <div>
           <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">Résumé</p>
-          <h1 className="text-4xl font-bold text-zinc-900">Harry Bui</h1>
+          <h1 className="font-serif text-4xl font-bold text-ink">Harry Bui</h1>
         </div>
         <a
           href="/resume.pdf"   // place your PDF at /public/resume.pdf
@@ -51,7 +51,7 @@ export default function ResumePage() {
           <div className="flex flex-col gap-6">
             <div className="flex flex-col gap-1">
               <div className="flex justify-between flex-wrap gap-1">
-                <p className="font-semibold text-zinc-900">M.A.Sc. in Electrical &amp; Computer Engineering</p>
+                <p className="font-semibold text-ink">M.A.Sc. in Electrical &amp; Computer Engineering</p>
                 <span className="font-mono text-xs text-zinc-500">Jan 2027 (Expected)</span>
               </div>
               <p className="text-zinc-600">University of Victoria · Victoria, BC</p>
@@ -63,7 +63,7 @@ export default function ResumePage() {
             </div>
             <div className="flex flex-col gap-1">
               <div className="flex justify-between flex-wrap gap-1">
-                <p className="font-semibold text-zinc-900">B.Sc. in Electrical Engineering</p>
+                <p className="font-semibold text-ink">B.Sc. in Electrical Engineering</p>
                 <span className="font-mono text-xs text-zinc-500">Aug 2017 – Nov 2022</span>
               </div>
               <p className="text-zinc-600">Hanoi University of Science and Technology · Hanoi, Vietnam</p>
@@ -175,7 +175,7 @@ function Divider() {
 function ProjectItem({ title, bullets }: { title: string; bullets: string[] }) {
   return (
     <div className="mb-6 last:mb-0">
-      <p className="font-semibold text-zinc-900 mb-1">{title}</p>
+      <p className="font-semibold text-ink mb-1">{title}</p>
       <ul className="flex flex-col gap-1 pl-4">
         {bullets.map((b) => (
           <li key={b} className="relative text-zinc-600 leading-relaxed before:absolute before:-left-3 before:content-['·'] before:text-green-700">
@@ -199,7 +199,7 @@ function ExperienceItem({
     <div className="mb-6 last:mb-0">
       <div className="flex items-start justify-between flex-wrap gap-1 mb-1">
         <div>
-          <p className="font-semibold text-zinc-900">{role}</p>
+          <p className="font-semibold text-ink">{role}</p>
           <p className="text-zinc-600">{company}</p>
         </div>
         <span className="font-mono text-xs text-zinc-500 shrink-0">{period}</span>

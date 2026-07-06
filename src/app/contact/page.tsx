@@ -10,7 +10,7 @@ export default function ContactPage() {
     <div className="mx-auto max-w-2xl px-6 py-24">
       <div className="mb-12">
         <p className="mb-1 font-mono text-xs text-green-700 uppercase tracking-widest">Get in touch</p>
-        <h1 className="text-4xl font-bold text-zinc-900">Contact</h1>
+        <h1 className="font-serif text-4xl font-bold text-ink">Contact</h1>
         <p className="mt-3 text-zinc-600 leading-relaxed">
           I&apos;m currently [open to opportunities / not looking / open to collaborations].{/* TODO */}
           The best way to reach me is via email or LinkedIn.
@@ -24,7 +24,7 @@ export default function ContactPage() {
           className="flex-1 rounded-xl border border-[#E5E5E5] bg-[#FFFFFF] px-6 py-4 transition-colors hover:border-green-700 group"
         >
           <p className="font-mono text-xs text-zinc-500 mb-1">Email</p>
-          <p className="text-sm font-medium text-zinc-900 group-hover:text-green-700 transition-colors">
+          <p className="text-sm font-medium text-ink group-hover:text-green-700 transition-colors">
             duchieubui511@gmail.com {/* TODO */}
           </p>
         </a>
@@ -35,7 +35,7 @@ export default function ContactPage() {
           className="flex-1 rounded-xl border border-[#E5E5E5] bg-[#FFFFFF] px-6 py-4 transition-colors hover:border-green-700 group"
         >
           <p className="font-mono text-xs text-zinc-500 mb-1">LinkedIn</p>
-          <p className="text-sm font-medium text-zinc-900 group-hover:text-green-700 transition-colors">
+          <p className="text-sm font-medium text-ink group-hover:text-green-700 transition-colors">
             http://www.linkedin.com/in/harry-bui0511 {/* TODO */}
           </p>
         </Link>
@@ -46,7 +46,7 @@ export default function ContactPage() {
           className="flex-1 rounded-xl border border-[#E5E5E5] bg-[#FFFFFF] px-6 py-4 transition-colors hover:border-green-700 group"
         >
           <p className="font-mono text-xs text-zinc-500 mb-1">GitHub</p>
-          <p className="text-sm font-medium text-zinc-900 group-hover:text-green-700 transition-colors">
+          <p className="text-sm font-medium text-ink group-hover:text-green-700 transition-colors">
             github.com/hieuhust123
           </p>
         </Link>
@@ -73,7 +73,7 @@ export default function ContactPage() {
               type="text"
               required
               placeholder="Your name"
-              className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30"
+              className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-ink placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30"
             />
           </label>
           <label className="flex flex-col gap-1.5">
@@ -83,7 +83,7 @@ export default function ContactPage() {
               type="email"
               required
               placeholder="you@example.com"
-              className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30"
+              className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-ink placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30"
             />
           </label>
         </div>
@@ -94,7 +94,7 @@ export default function ContactPage() {
             name="subject"
             type="text"
             placeholder="What's this about?"
-            className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30"
+            className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-ink placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30"
           />
         </label>
 
@@ -105,7 +105,7 @@ export default function ContactPage() {
             rows={5}
             required
             placeholder="Your message…"
-            className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-zinc-900 placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30 resize-none"
+            className="rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] px-4 py-2.5 text-sm text-ink placeholder-zinc-600 outline-none transition-colors focus:border-green-700 focus:ring-1 focus:ring-green-700/30 resize-none"
           />
         </label>
 
