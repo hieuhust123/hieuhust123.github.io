@@ -46,6 +46,36 @@ export default function ResumePage() {
 
         <Divider />
 
+        {/* ── Education ──────────────────────────────────────────── */}
+        <Section title="Education">
+          <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-1">
+              <div className="flex justify-between flex-wrap gap-1">
+                <p className="font-semibold text-zinc-900">M.A.Sc. in Electrical &amp; Computer Engineering</p>
+                <span className="font-mono text-xs text-zinc-500">Jan 2027 (Expected)</span>
+              </div>
+              <p className="text-zinc-600">University of Victoria · Victoria, BC</p>
+              <p className="text-zinc-500 text-xs">
+                Lab TA: Microprocessor-Based Systems, Applied Electronics &amp; Electrical Machines,
+                Electronic Devices, Linear Circuits · Coursework: Digital Design, System-on-Chip
+                Engineering for Signal Processing, Optimization for Machine Learning
+              </p>
+            </div>
+            <div className="flex flex-col gap-1">
+              <div className="flex justify-between flex-wrap gap-1">
+                <p className="font-semibold text-zinc-900">B.Sc. in Electrical Engineering</p>
+                <span className="font-mono text-xs text-zinc-500">Aug 2017 – Nov 2022</span>
+              </div>
+              <p className="text-zinc-600">Hanoi University of Science and Technology · Hanoi, Vietnam</p>
+              <p className="text-zinc-500 text-xs">
+                Coursework: Microcontroller Systems, Analog &amp; Digital Electronics, Embedded Systems
+              </p>
+            </div>
+          </div>
+        </Section>
+
+        <Divider />
+
         {/* ── Experience ─────────────────────────────────────────── */}
         <Section title="Experience">
           <ExperienceItem
@@ -80,49 +110,6 @@ export default function ResumePage() {
 
         <Divider />
 
-        {/* ── Education ──────────────────────────────────────────── */}
-        <Section title="Education">
-          <div className="flex flex-col gap-6">
-            <div className="flex flex-col gap-1">
-              <div className="flex justify-between flex-wrap gap-1">
-                <p className="font-semibold text-zinc-900">M.A.Sc. in Electrical &amp; Computer Engineering</p>
-                <span className="font-mono text-xs text-zinc-500">Jan 2027 (Expected)</span>
-              </div>
-              <p className="text-zinc-600">University of Victoria · Victoria, BC</p>
-              <p className="text-zinc-500 text-xs">
-                Lab TA: Microprocessor-Based Systems, Applied Electronics &amp; Electrical Machines,
-                Electronic Devices, Linear Circuits · Coursework: Digital Design, System-on-Chip
-                Engineering for Signal Processing, Optimization for Machine Learning
-              </p>
-            </div>
-            <div className="flex flex-col gap-1">
-              <div className="flex justify-between flex-wrap gap-1">
-                <p className="font-semibold text-zinc-900">B.Sc. in Electrical Engineering</p>
-                <span className="font-mono text-xs text-zinc-500">Aug 2017 – Nov 2022</span>
-              </div>
-              <p className="text-zinc-600">Hanoi University of Science and Technology · Hanoi, Vietnam</p>
-              <p className="text-zinc-500 text-xs">
-                Coursework: Microcontroller Systems, Analog &amp; Digital Electronics, Embedded Systems
-              </p>
-            </div>
-          </div>
-        </Section>
-
-        <Divider />
-
-        {/* ── Skills ─────────────────────────────────────────────── */}
-        <Section title="Skills">
-          <div className="flex flex-col gap-3">
-            <SkillRow label="RTL & Design" skills={['Verilog', 'VHDL', 'FSM Design', 'APB Protocol', 'Datapath Design']} />
-            <SkillRow label="Verification" skills={['Self-Checking Testbenches', 'Directed & Randomized Stimulus', 'Code-Coverage Closure', 'Regression']} />
-            <SkillRow label="EDA & Sim"    skills={['QuestaSim', 'Xilinx Vivado', 'Synopsys PrimeTime (STA)']} />
-            <SkillRow label="Programming"  skills={['Python', 'C/C++', 'Bash', 'Perl', 'Tcl']} />
-            <SkillRow label="Tools"        skills={['Git', 'Linux', 'Docker', 'HPC/Slurm']} />
-          </div>
-        </Section>
-
-        <Divider />
-
         {/* ── Projects ───────────────────────────────────────────── */}
         <Section title="Projects">
           <ProjectItem
@@ -148,6 +135,19 @@ export default function ResumePage() {
               'Replaced the default blocking FIFO communication between the hardware and software modules with a custom enable/done handshaking protocol, enabling cycle-level synchronization across the HW/SW boundary.',
             ]}
           />
+        </Section>
+
+        <Divider />
+
+        {/* ── Skills ─────────────────────────────────────────────── */}
+        <Section title="Skills">
+          <div className="flex flex-col gap-3">
+            <SkillRow label="RTL & Design" skills={['Verilog', 'VHDL', 'FSM Design', 'APB Protocol', 'Datapath Design']} />
+            <SkillRow label="Verification" skills={['Self-Checking Testbenches', 'Directed & Randomized Stimulus', 'Code-Coverage Closure', 'Regression']} />
+            <SkillRow label="EDA & Sim"    skills={['QuestaSim', 'Xilinx Vivado', 'Synopsys PrimeTime (STA)']} />
+            <SkillRow label="Programming"  skills={['Python', 'C/C++', 'Bash', 'Perl', 'Tcl']} />
+            <SkillRow label="Tools"        skills={['Git', 'Linux', 'Docker', 'HPC/Slurm']} />
+          </div>
         </Section>
 
       </div>
@@ -218,7 +218,7 @@ function ExperienceItem({
 function SkillRow({ label, skills }: { label: string; skills: string[] }) {
   return (
     <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-      <span className="shrink-0 font-mono text-xs text-zinc-500 w-20">{label}</span>
+      <span className="shrink-0 font-mono text-xs text-zinc-500 w-28">{label}</span>
       <ul className="flex flex-wrap gap-2">
         {skills.map((s) => (
           <li key={s} className="rounded bg-[#FFFFFF] border border-[#E5E5E5] px-2 py-0.5 font-mono text-xs text-zinc-700">

@@ -94,7 +94,11 @@ function BlogCard({ item }: { item: BlogPost }) {
       <span className="mb-2 inline-block rounded-full bg-[#FFFFFF] px-2.5 py-0.5 font-mono text-xs text-zinc-600 border border-[#E5E5E5]">
         {item.label ?? 'Write-up'} · {formattedDate}
       </span>
-      <h2 className="mt-1 text-lg font-semibold text-zinc-900">{item.title}</h2>
+      <h2 className="mt-1 text-lg font-semibold text-zinc-900">
+        <a href={item.href ?? `/research/${item.slug}`} className="transition-colors hover:text-green-700">
+          {item.title}
+        </a>
+      </h2>
       <p className="mt-2 text-sm text-zinc-600 leading-relaxed">{item.summary}</p>
       <div className="mt-4 flex flex-wrap items-center justify-between gap-3">
         <ul className="flex flex-wrap gap-2">
