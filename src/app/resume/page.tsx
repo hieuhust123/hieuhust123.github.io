@@ -63,8 +63,8 @@ export default function ResumePage() {
             period="Oct 2023 – Feb 2024"
             bullets={[
               'Completed a structured training program on the ASIC backend flow, covering synthesis, floorplanning, place & route, clock tree synthesis, and timing closure through lectures, design reviews, and report analysis.',
-              'Performed static timing analysis in Synopsys PrimeTime, debugging setup/hold violations, identifying critical paths, and applying SDC timing constraints via Tcl scripts to drive designs toward sign-off.',
-              'Developed Tcl and shell scripts to parse PrimeTime timing reports, flag setup/hold violations, and summarize critical paths, streamlining the debug loop during iterative timing closure.',
+              'Performed static timing analysis in Synopsys PrimeTime, identifying critical paths and debugging setup/hold violations.',
+              'Applied SDC clock and I/O delay constraints via Tcl scripts to define the design’s timing requirements for closure.',
             ]}
           />
           <ExperienceItem
@@ -114,10 +114,40 @@ export default function ResumePage() {
         <Section title="Skills">
           <div className="flex flex-col gap-3">
             <SkillRow label="RTL & Design" skills={['Verilog', 'VHDL', 'FSM Design', 'APB Protocol', 'Datapath Design']} />
+            <SkillRow label="Verification" skills={['Self-Checking Testbenches', 'Directed & Randomized Stimulus', 'Code-Coverage Closure', 'Regression']} />
             <SkillRow label="EDA & Sim"    skills={['QuestaSim', 'Xilinx Vivado', 'Synopsys PrimeTime (STA)']} />
-            <SkillRow label="Programming"  skills={['Python', 'C/C++', 'Bash', 'Perl']} />
+            <SkillRow label="Programming"  skills={['Python', 'C/C++', 'Bash', 'Perl', 'Tcl']} />
             <SkillRow label="Tools"        skills={['Git', 'Linux', 'Docker', 'HPC/Slurm']} />
           </div>
+        </Section>
+
+        <Divider />
+
+        {/* ── Projects ───────────────────────────────────────────── */}
+        <Section title="Projects">
+          <ProjectItem
+            title="8-bit Programmable Timer IP with APB Slave Interface"
+            bullets={[
+              'Designed an 8-bit timer IP in Verilog across six RTL modules, with up/down counting, four divided clock sources and hardware overflow/underflow status flags using write-1-to-clear semantics.',
+              'Implemented an AMBA APB slave interface with a three-state FSM (IDLE/SETUP/ACCESS), parameterized wait states, and PSLVERR responses on reserved-address access, ensuring full APB read/write protocol compliance.',
+              'Built a self-checking Verilog testbench in QuestaSim with a reusable task-based APB master (bus-functional model), clock/reset generators, and reference-model checking, automating simulation and reporting via a Makefile with Tcl do-files and Bash regression scripts.',
+              'Developed a 21-test suite using directed and randomized stimulus with concurrent fork-join, covering register access, PSLVERR, up/down counting across all four clocks, pause/resume, mid-test reset/reload, and false-flag corner cases, achieving 95% statement, 94% branch, 91% toggle, and 100% FSM state coverage on the DUT in QuestaSim.',
+            ]}
+          />
+          <ProjectItem
+            title="FPGA-Based Real-Time Image Processing System"
+            bullets={[
+              'Engineered a real-time binary image processing pipeline in VHDL on a Nexys A7 FPGA, implementing morphological erosion, dilation, opening, and closing using a 3×3 structuring element.',
+              'Implemented VGA synchronization and line-buffer timing logic to maintain 3×3 pixel-window alignment with display signals through the pipeline.',
+            ]}
+          />
+          <ProjectItem
+            title="Hardware Accelerator Design in SystemC: Diffie-Hellman Key Exchange"
+            bullets={[
+              'Designed a clocked hardware accelerator in SystemC to offload a compute-intensive digit-division function from the software side of a Diffie-Hellman key exchange, building a structural datapath (registers, multiplexers, adders, subtractors, multipliers) controlled by a Moore-type FSM.',
+              'Replaced the default blocking FIFO communication between the hardware and software modules with a custom enable/done handshaking protocol, enabling cycle-level synchronization across the HW/SW boundary.',
+            ]}
+          />
         </Section>
 
       </div>
@@ -140,6 +170,21 @@ function Section({ title, children }: { title: string; children: React.ReactNode
 
 function Divider() {
   return <hr className="border-[#E5E5E5]" />;
+}
+
+function ProjectItem({ title, bullets }: { title: string; bullets: string[] }) {
+  return (
+    <div className="mb-6 last:mb-0">
+      <p className="font-semibold text-zinc-900 mb-1">{title}</p>
+      <ul className="flex flex-col gap-1 pl-4">
+        {bullets.map((b) => (
+          <li key={b} className="relative text-zinc-600 leading-relaxed before:absolute before:-left-3 before:content-['·'] before:text-green-700">
+            {b}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
 }
 
 function ExperienceItem({
