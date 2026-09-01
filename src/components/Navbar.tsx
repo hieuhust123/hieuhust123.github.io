@@ -17,7 +17,7 @@ export default function Navbar() {
   const pathname = usePathname();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-[#E5E5E5] bg-[#FAFAFA]/80 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-[#E5E5E5] bg-[#FAFAFA]/80 backdrop-blur-md print:hidden">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
 
         {/* Logo / wordmark */}
@@ -66,5 +66,4 @@ export default function Navbar() {
     </header>
   );
 }
-
 

@@ -27,10 +27,10 @@ const ALL_PROJECTS: ProjectCardProps[] = [
   },
   {
     slug: 'project-three',
-    title: '8-bit Programmable Timer IP with APB Slave Interface',
-    summary: '8-bit Verilog timer IP with TCR/TDR/TSR registers, up/down counting, four clock sources, and overflow/underflow interrupts over APB — verified in QuestaSim with a 21-case self-checking testbench.',
-    tags: ['Verilog', 'APB', 'QuestaSim', 'FSM'],
-    media: { type: 'image', src: '/projects/project-three/cover.png', alt: '8-bit timer IP with APB slave interface' },
+    title: 'APB Timer IP — Verilog RTL + SystemVerilog Verification',
+    summary: 'An ongoing 8-bit Verilog Timer IP project whose procedural baseline evolved into a class-based SystemVerilog environment with typed mailboxes, clocking blocks, separated prediction and comparison, constrained-random stimulus, and functional coverage.',
+    tags: ['Verilog RTL', 'SystemVerilog', 'APB', 'QuestaSim', 'Functional Coverage'],
+    media: { type: 'image', src: '/projects/project-three/rtl-architecture.svg', alt: 'RTL architecture of the APB Timer IP' },
   },
 ];
 

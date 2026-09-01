@@ -29,6 +29,8 @@ type Media =
 // `fit` works like the hero's: 'contain' shows the whole image (good for diagrams).
 type SectionImage = { src: string; alt: string; caption?: string; fit?: 'cover' | 'contain' };
 
+type Metric = { value: string; label: string; note?: string };
+
 // One section of the write-up: a heading, optional paragraphs, and optional images.
 // `images` render as a responsive grid below the paragraphs (1 image = full width).
 type Section = {
@@ -52,6 +54,7 @@ const PROJECTS: Record<
     githubUrl: string;
     liveUrl: string;
     media?: Media;
+    metrics?: Metric[];
     body: Section[];
   }
 > = {
@@ -216,69 +219,117 @@ const PROJECTS: Record<
   },
 
   'project-three': {
-    title: '8-bit Programmable Timer IP with APB Slave Interface',
+    title: 'APB Timer IP — Verilog RTL + SystemVerilog Verification',
     summary:
-      'Designed an 8-bit timer IP in Verilog with three memory-mapped registers (TCR, TDR, TSR), up/down counting, four selectable internal clock sources, and overflow/underflow interrupts, exposed through an AMBA APB slave interface with full PSLVERR-compliant error handling. Verified in QuestaSim with a Makefile-driven, self-checking testbench and 21 directed, constrained-random, and fork-join test cases.',
-    tags: ['Verilog', 'APB', 'QuestaSim', 'FSM', 'Verification'],
-    date: 'May 2026',
+      'An ongoing 8-bit Timer IP project: Verilog RTL with an AMBA APB interface, plus a class-based SystemVerilog environment built to evolve the original procedural verification baseline.',
+    tags: ['Verilog RTL', 'SystemVerilog', 'APB', 'QuestaSim', 'Constrained Random', 'Functional Coverage'],
+    date: 'May 2026 — ongoing',
     githubUrl: 'https://github.com/hieuhust123/Timer_full',
     liveUrl: '',
-    // Hero visual. Drop the block-diagram image in public/projects/project-three/cover.png
-    // (the top-level block diagram from the design spec works perfectly here).
     media: {
       type: 'image',
-      src: '/projects/project-three/cover.png',
-      alt: 'Top-level block diagram of the 8-bit timer IP: Read/Write Control (APB slave), Control Logic, TCNT counter, clock select, overflow/underflow comparator, and the TDR/TCR/TSR registers',
+      src: '/projects/project-three/rtl-architecture.svg',
+      alt: 'RTL architecture showing the APB slave, Timer registers, clock selection, counter, and wrap detection',
       fit: 'contain',
     },
+    metrics: [
+      { value: '26 / 0', label: 'Original verified baseline', note: 'PASS / FAIL before architectural scaling' },
+      { value: '37 / 0', label: 'Seeded random checkpoint', note: 'PASS / FAIL, seed 10' },
+      { value: 'Ongoing', label: 'Verification status', note: 'Multi-seed, coverage and assertion closure remain' },
+    ],
     body: [
       {
         heading: 'Overview',
         paragraphs: [
-          'An 8-bit programmable timer IP written in Verilog, exposing its functionality through three memory-mapped registers — a control register (TCR), a data register (TDR), and a status register (TSR) — over an AMBA APB slave interface. The timer counts up or down across the full 0x00–0xFF range, selects among four internal clock sources, and raises overflow/underflow status flags, making it a reusable building block for an SoC register map.',
+          'The design is an 8-bit programmable Timer IP written in Verilog and exposed through an AMBA APB slave interface. Its four-address register map contains TDR for load data, TCR for load/enable/direction/clock control, TSR for sticky write-one-to-clear overflow and underflow status, and read-only TCNT for the live counter value.',
+          'I kept the original procedural Verilog testbench as the historical verification baseline, then evolved the project with a separate class-based SystemVerilog environment. This preserves the design-verification progression rather than presenting the RTL as a SystemVerilog rewrite.',
         ],
       },
       {
-        heading: 'Architecture',
+        heading: 'Verilog RTL Architecture',
         paragraphs: [
-          'The IP is partitioned into five cooperating blocks. The Read/Write Control block is the APB slave front end: it runs the APB state machine, decodes the address, and reads/writes the registers. The Control Logic block is a pure combinational fan-out that decodes the TCR control bits and routes them to the datapath. The Clock Select block muxes one of four external clocks based on the configured source, the Timer Counter (TCNT) does the actual up/down counting, and the Overflow/Underflow Comparator watches the count value to raise event flags.',
-          'A clean clock-domain discipline ties it together: the selected timer clock (TMR_CLK_IN) is not used directly as a clock. Instead, a rising-edge detector (TMR_EDGE = TMR_CLK_IN & ~registered_clk) converts it into a single-cycle enable pulse, so every flip-flop in the counter is clocked by the system PCLK. This keeps the whole design synchronous and avoids a multi-clock counter.',
+          'Six RTL modules divide the design into top-level integration, APB read/write control, TCR decoding, four-way clock selection, the TCNT datapath, and wrap detection. The APB slave uses IDLE, SETUP and ACCESS states, supports a configurable wait-state count, and returns PSLVERR for reserved addresses.',
+          'CLK_IN[3:0] are external Timer clock inputs. The selected input is converted into an edge-qualified enable inside the PCLK domain instead of directly clocking TCNT. Real FF-to-00 and 00-to-FF counter transitions arm the overflow and underflow sources; hardware status-set has priority over software clear while the source remains active.',
         ],
         images: [
           {
-            src: '/projects/project-three/cover.png',
-            alt: 'Top-level block diagram showing Read/Write Control (APB slave) on the right, Control Logic on the left, the TCNT counter with overflow/underflow comparators in the centre, a Select-clock mux, and the TDR/TCR/TSR registers',
-            caption: 'Top-level block diagram: APB Read/Write Control, Control Logic, TCNT counter, clock select, overflow/underflow comparator, and the TDR/TCR/TSR register file.',
+            src: '/projects/project-three/rtl-architecture.svg',
+            alt: 'APB Timer RTL architecture and four-address register map',
+            caption: 'RTL dataflow: external APB and clock inputs configure the register bank and PCLK-domain Timer datapath.',
             fit: 'contain',
           },
         ],
       },
       {
-        heading: 'APB Slave & Register Map',
+        heading: 'APB Interface and Register Map',
         paragraphs: [
-          'The APB front end implements the standard IDLE → SETUP → ACCESS state machine, validating the PSEL/PENABLE/PWRITE sequence, generating PREADY (with a configurable WAIT_STATE, default 2), and asserting PSLVERR on illegal access. A register write commits on the final ACCESS-phase PCLK edge when the transfer is valid and the target is writable.',
-          'A 3-bit address bus (PADDR[2:0]) decodes the register map: 0x0 = TDR (R/W), 0x1 = TCR (R/W), 0x2 = TSR (R/W, with write-1-to-clear status bits), 0x3 = TCNT (read-only — writes are ignored), and 0x4–0x7 = reserved, which assert PSLVERR. TDR, TCR, and TSR are stored internally as flip-flops; TCNT is read back live through a dedicated read path.',
+          'The APB controller handles standard SETUP and ACCESS transfers with parameterized wait states. Valid writes update TDR, TCR or the W1C bits of TSR; writes to TCNT are ignored, and accesses to addresses 0x4 through 0x7 return PSLVERR.',
+          'Protocol transition closure is still in progress, so this project does not claim complete AMBA APB compliance. Current verification covers ordinary reads and writes, wait-state completion, read-only behavior, error responses, and ongoing back-to-back transfer work.',
         ],
       },
       {
-        heading: 'Counter & Status Behaviour',
+        heading: 'Verification Evolution',
         paragraphs: [
-          'TCR drives the datapath directly: TCR[7] loads the TDR preset into TCNT, TCR[5] selects direction (0 = up, 1 = down), TCR[4] enables counting, and TCR[1:0] selects the clock source — one of four PCLK divisions (PCLK/2, /4, /8, /16). The counter only updates when it is enabled and a TMR_EDGE pulse arrives; otherwise it holds. Asserting load for a single cycle preloads the start value, then counting resumes from there.',
-          'The comparator raises TMR_OVF the cycle before the counter wraps from 0xFF→0x00 (up-counting) and TMR_UDF the cycle before 0x00→0xFF (down-counting). These combinational pulses are latched into the sticky, hardware-set / software-cleared (W1C) status bits TSR[0] (OVF) and TSR[1] (UDF) in the Read/Write Control block, so software sees the event until it explicitly clears it.',
+          'The original Verilog testbench established a procedural, self-checking baseline. The SystemVerilog version separates stimulus policy, protocol driving, passive observation, prediction, comparison and coverage into focused components instead of extending one monolithic scoreboard.',
+          'Directed and constrained-random tests inherit from a common virtual base test and share one typed request mailbox and one APB driver. The top-level selects either test through a base-class handle, demonstrating polymorphism while preserving a single owner for APB request signals.',
         ],
       },
       {
-        heading: 'Verification',
+        heading: 'SystemVerilog Verification Architecture',
         paragraphs: [
-          'I built a Makefile-driven testbench in QuestaSim featuring a bus-master VIP, clock and reset generators, and a scoreboard for self-checking, with the full simulation and reporting flow automated via Tcl and Bash.',
-          'The suite contains 21 directed, constrained-random, and concurrent (fork-join) test cases targeting register access, PSLVERR responses, up/down counting across all four internal clocks, pause/resume, reset, and overflow/underflow corner cases — driven to close functional and code coverage holes.',
+          'The active path is test → request mailbox → APB driver → interface/DUT. Independent passive monitors reconstruct completed APB transfers and PCLK-domain Timer events. Each observation is cloned into separate checking and coverage streams so consumers never compete for or mutate the same object.',
+          'The predictor owns expected TDR, TCR, TSR and TCNT state and emits typed check-result objects. The comparator owns equality policy, pass/fail counters and final reporting. Lifecycle counters prevent simulation from ending until requests, observations, predictions, comparisons and coverage samples have drained.',
+        ],
+        images: [
+          {
+            src: '/projects/project-three/verification-architecture.svg',
+            alt: 'Class-based SystemVerilog verification architecture from tests through driver, DUT, monitors, predictor, comparator, and coverage',
+            caption: 'One active APB owner, independent passive observation streams, separated prediction and comparison, and explicit lifecycle accounting.',
+            fit: 'contain',
+          },
         ],
       },
       {
-        heading: 'Reflection & Skills Gained',
+        heading: 'Reference Modeling and Timing',
         paragraphs: [
-          'Building this IP deepened my understanding of standard bus protocols — designing a compliant APB slave, including correct PSLVERR behaviour on invalid access, made the rules of a real SoC interface concrete. The W1C status flags and the fork-join race-condition tests sharpened how I reason about hardware-software interaction at the register level.',
-          'On the verification side I gained hands-on experience writing directed and constrained-random testcases in QuestaSim, and learned why deliberately provoking race conditions is essential to trust a status register under real driver contention rather than just in the happy path.',
+          'A TCR write configures the Timer; it does not itself cause every future count. APB observations and Timer events therefore enter the predictor as separate causal streams. Interface clocking blocks centralize drive and sample timing instead of scattering raw edge controls through the classes.',
+          'Only a selected-clock 0-to-1 transition with enable asserted can load, increment or decrement expected TCNT. Overflow is predicted only for FF-to-00 and underflow only for 00-to-FF, preventing boundary loads from being mistaken for real wrap events.',
+          'Same-cycle APB and Timer-event ordering is a known open issue: some seeds can expose a TCNT prediction mismatch. The current work is making that ordering deterministic rather than presenting the reference model as verification-complete.',
+        ],
+      },
+      {
+        heading: 'Constrained-Random Stimulus and Functional Coverage',
+        paragraphs: [
+          'Request fields are randomized with legal base constraints and targeted inline constraints, while DUT response fields remain non-random. Directed and random stimulus reuse the same mailbox transport and driver, and seeds are recorded for repeatability.',
+          'APB coverpoints measure operation, address, validity, PSLVERR and TCR fields, with requirement-driven crosses. Timer-event coverage measures reset context, direction at real wraps, and fake-overflow/fake-underflow prevention. A reported 100% value applies only to the legal bins in that specific covergroup version; pause/resume coverage, merged-regression closure, code coverage and assertion coverage remain separate work.',
+        ],
+      },
+      {
+        heading: 'Bug Exposed by Verification',
+        paragraphs: [
+          'A directed false-wrap scenario exposed an RTL bug: loading TCNT across the FF-to-00 boundary could set overflow even though no real counting event occurred. The wrap detector was updated to qualify the transition with the load control, and matching fake-overflow and fake-underflow scenarios were added to both checking and functional coverage.',
+          'This was a useful verification lesson: boundary values alone do not prove a wrap. The model and RTL must distinguish the cause of a transition—load versus count—not merely its before-and-after values.',
+        ],
+      },
+      {
+        heading: 'Verified Checkpoints',
+        paragraphs: [
+          'The original procedural testbench established a reproducible 26 PASS / 0 FAIL baseline. A later constrained-random smoke checkpoint completed 37 comparisons with 0 failures using seed 10. These numbers are intentionally labeled as different checkpoints rather than combined into one test count.',
+          'Aggregate code-coverage percentages are intentionally withheld until the expanded directed and random regressions are cleanly rerun against the same coverage model and their UCDB databases are merged. Coverage occurrence does not override a comparator failure.',
+        ],
+      },
+      {
+        heading: 'Current Engineering Status',
+        paragraphs: [
+          'The class-based environment, major directed scenarios, constrained-random path and functional coverage model are implemented. Deterministic multi-seed regression, APB transition closure, complete requirement-to-coverage mapping and assertions remain in progress, so the repository reflects active development rather than a verification-complete release.',
+          'Build targets and scripts support compilation, directed/random selection, seed recording, UCDB capture and coverage-report workflows with Make, Tcl and Bash. Assertions are roadmap work and are intentionally not claimed as completed.',
+        ],
+      },
+      {
+        heading: 'Reflection & Skills Demonstrated',
+        paragraphs: [
+          'This evolution made the difference between generating traffic and building a reusable verification architecture concrete. The most important lessons were enforcing one signal owner, separating expected-state modeling from verdict policy, accounting for every transaction lifecycle stage, and modeling physical causes rather than convenient correlations.',
+          'The project demonstrates Verilog RTL design, AMBA APB behavior, SystemVerilog OOP, inheritance and polymorphism, typed mailboxes, object cloning, clocking blocks, constrained randomization, event-driven reference modeling, functional coverage, reproducible seeds and QuestaSim regression debugging.',
         ],
       },
     ],
@@ -400,6 +451,18 @@ export default function ProjectDetailPage({ params }: Props) {
           <p className="font-mono text-sm text-zinc-600">[ project media ]</p>
         )}
       </div>
+
+      {project.metrics && project.metrics.length > 0 && (
+        <section aria-label="Verified project metrics" className="mb-14 grid grid-cols-1 gap-3 sm:grid-cols-3">
+          {project.metrics.map((metric) => (
+            <div key={metric.label} className="rounded-xl border border-[#E5E5E5] bg-white p-5">
+              <p className="font-mono text-2xl font-semibold text-green-700">{metric.value}</p>
+              <p className="mt-1 text-sm font-semibold text-ink">{metric.label}</p>
+              {metric.note && <p className="mt-1 text-xs leading-relaxed text-zinc-500">{metric.note}</p>}
+            </div>
+          ))}
+        </section>
+      )}
 
       {/* ── Long-form content ───────────────────────────────────────── */}
       <article className="prose prose-zinc max-w-none

@@ -36,3 +36,39 @@
     box-shadow: 0 0 0 1px #15803D, 0 4px 20px rgba(21, 128, 61, 0.12);
   }
 }
+
+@media print {
+  @page {
+    size: A4;
+    margin: 11mm 12mm;
+  }
+
+  html,
+  body {
+    background: #FFFFFF !important;
+  }
+
+  .resume-print {
+    max-width: none !important;
+    padding: 0 !important;
+  }
+
+  .resume-download {
+    display: none !important;
+  }
+
+  .resume-content {
+    gap: 1rem !important;
+    font-size: 9pt !important;
+  }
+
+  .resume-content h2 {
+    margin-bottom: 0.45rem !important;
+    break-after: avoid;
+  }
+
+  .resume-item {
+    margin-bottom: 0.65rem !important;
+    break-inside: avoid;
+  }
+}

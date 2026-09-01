@@ -6,10 +6,10 @@ import Footer from '@/components/Footer';
 export const metadata: Metadata = {
   title: 'Harry Bui',
   description:
-    'Personal engineering portfolio of Harry Bui — digital design and RTL engineer specializing in Verilog/VHDL, FPGA, and ASIC verification.',
+    'Personal engineering portfolio of Harry Bui — digital design and verification engineer working with Verilog RTL, SystemVerilog verification, FPGA systems, and ASIC flows.',
   openGraph: {
     title: 'Harry Bui',
-    description: 'Digital design & RTL engineering portfolio of Harry Bui',
+    description: 'Digital design, RTL, and SystemVerilog verification portfolio of Harry Bui',
     url: 'https://hieuhust123.github.io',
     siteName: 'Harry Bui',
     locale: 'en_US',

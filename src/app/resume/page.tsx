@@ -3,7 +3,7 @@
 
 export default function ResumePage() {
   return (
-    <div className="mx-auto max-w-3xl px-6 py-24">
+    <div className="resume-print mx-auto max-w-3xl px-6 py-24">
 
       {/* ── Page header with PDF download ──────────────────────────── */}
       <div className="mb-12 flex items-start justify-between gap-4 flex-wrap">
@@ -14,13 +14,13 @@ export default function ResumePage() {
         <a
           href="/resume.pdf"   // place your PDF at /public/resume.pdf
           download
-          className="shrink-0 rounded-lg bg-green-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-700/20 transition-all duration-200 hover:bg-green-800 hover:-translate-y-0.5"
+          className="resume-download shrink-0 rounded-lg bg-green-700 px-5 py-2.5 text-sm font-semibold text-white shadow-lg shadow-green-700/20 transition-all duration-200 hover:bg-green-800 hover:-translate-y-0.5"
         >
           Download PDF ↓
         </a>
       </div>
 
-      <div className="flex flex-col gap-10 text-sm">
+      <div className="resume-content flex flex-col gap-10 text-sm">
 
         {/* ── Contact strip ───────────────────────────────────────── */}
         <section className="flex flex-wrap gap-x-6 gap-y-1 font-mono text-xs text-zinc-500">
@@ -36,10 +36,10 @@ export default function ResumePage() {
         {/* ── Summary ────────────────────────────────────────────── */}
         <Section title="Summary">
           <p className="text-zinc-600 leading-relaxed">
-            Electrical &amp; Computer Engineering MASc candidate specializing in RTL and
-            digital design. Experienced across the hardware flow — from Verilog/VHDL design
-            and APB-based IP, to QuestaSim verification, to ASIC backend static timing
-            analysis in Synopsys PrimeTime. Comfortable bridging hardware and software,
+            Electrical &amp; Computer Engineering MASc candidate specializing in RTL design
+            and verification. Experienced across the hardware flow — from Verilog/VHDL design
+            and class-based SystemVerilog verification, to FPGA systems and ASIC backend static
+            timing analysis in Synopsys PrimeTime. Comfortable bridging hardware and software,
             with a background in embedded C/C++ and Python-driven ML research.
           </p>
         </Section>
@@ -115,10 +115,10 @@ export default function ResumePage() {
           <ProjectItem
             title="8-bit Programmable Timer IP with APB Slave Interface"
             bullets={[
-              'Designed an 8-bit timer IP in Verilog across six RTL modules, with up/down counting, four divided clock sources and hardware overflow/underflow status flags using write-1-to-clear semantics.',
-              'Implemented an AMBA APB slave interface with a three-state FSM (IDLE/SETUP/ACCESS), parameterized wait states, and PSLVERR responses on reserved-address access, ensuring full APB read/write protocol compliance.',
-              'Built a self-checking Verilog testbench in QuestaSim with a reusable task-based APB master (bus-functional model), clock/reset generators, and reference-model checking, automating simulation and reporting via a Makefile with Tcl do-files and Bash regression scripts.',
-              'Developed a 21-test suite using directed and randomized stimulus with concurrent fork-join, covering register access, PSLVERR, up/down counting across all four clocks, pause/resume, mid-test reset/reload, and false-flag corner cases, achieving 95% statement, 94% branch, 91% toggle, and 100% FSM state coverage on the DUT in QuestaSim.',
+              'Designed an 8-bit Timer IP in Verilog across six RTL modules with up/down counting, four selectable clock inputs, write-one-to-clear status flags, and an AMBA APB slave using a three-state FSM, configurable wait states, and PSLVERR responses for reserved addresses.',
+              'Evolved the procedural testbench into a class-based SystemVerilog environment with a driver, passive monitors, reference-model predictor, comparator, and functional-coverage collector connected by typed mailboxes; used clocking blocks for explicit APB timing and base-class inheritance for polymorphic directed/random test selection.',
+              'Developed constrained-random stimulus with base and inline constraints alongside directed corner cases, exposing and fixing a false-overflow bug in which loading TCNT across the FF-to-00 boundary set the status flag without a real count event.',
+              'Automated compilation, test selection, seed recording, directed/random UCDB capture, and coverage merge/report workflows with Make, Tcl, and Bash.',
             ]}
           />
           <ProjectItem
@@ -143,7 +143,7 @@ export default function ResumePage() {
         <Section title="Skills">
           <div className="flex flex-col gap-3">
             <SkillRow label="RTL & Design" skills={['Verilog', 'VHDL', 'FSM Design', 'APB Protocol', 'Datapath Design']} />
-            <SkillRow label="Verification" skills={['Self-Checking Testbenches', 'Directed & Randomized Stimulus', 'Code-Coverage Closure', 'Regression']} />
+            <SkillRow label="Verification" skills={['SystemVerilog OOP', 'Self-Checking Testbenches', 'Constrained Random', 'Functional Coverage', 'Regression']} />
             <SkillRow label="EDA & Sim"    skills={['QuestaSim', 'Xilinx Vivado', 'Synopsys PrimeTime (STA)']} />
             <SkillRow label="Programming"  skills={['Python', 'C/C++', 'Bash', 'Perl', 'Tcl']} />
             <SkillRow label="Tools"        skills={['Git', 'Linux', 'Docker', 'HPC/Slurm']} />
@@ -174,7 +174,7 @@ function Divider() {
 
 function ProjectItem({ title, bullets }: { title: string; bullets: string[] }) {
   return (
-    <div className="mb-6 last:mb-0">
+    <div className="resume-item mb-6 last:mb-0">
       <p className="font-semibold text-ink mb-1">{title}</p>
       <ul className="flex flex-col gap-1 pl-4">
         {bullets.map((b) => (
@@ -196,7 +196,7 @@ function ExperienceItem({
   bullets: string[];
 }) {
   return (
-    <div className="mb-6 last:mb-0">
+    <div className="resume-item mb-6 last:mb-0">
       <div className="flex items-start justify-between flex-wrap gap-1 mb-1">
         <div>
           <p className="font-semibold text-ink">{role}</p>
