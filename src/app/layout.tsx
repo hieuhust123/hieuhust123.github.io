@@ -27,7 +27,7 @@ export default function RootLayout({
       <head>
         {/* Privacy-friendly visit analytics: https://www.goatcounter.com */}
         <script
-          data-goatcounter="https://harrybui.goatcounter.com/count"
+          data-goatcounter="https://hieudaica.goatcounter.com/count"
           async
           src="//gc.zgo.at/count.js"
         />

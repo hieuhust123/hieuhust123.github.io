@@ -1,3 +1,5 @@
+'use client';
+
 import Link from 'next/link';
 
 // ── Icon components (inline SVG — no extra icon lib needed) ──────────────────
@@ -31,13 +33,23 @@ function EmailIcon() {
 export default function Footer() {
   const year = new Date().getFullYear();
 
+  // Clicking the copyright year opens GoatCounter's own opt-out prompt,
+  // letting the site owner exclude their own browser from visit tracking.
+  function handleYearClick() {
+    window.location.hash = 'toggle-goatcounter';
+  }
+
   return (
     <footer className="border-t border-[#E5E5E5] bg-[#FAFAFA] print:hidden">
       <div className="mx-auto flex max-w-6xl flex-col items-center gap-4 px-6 py-8 sm:flex-row sm:justify-between">
 
         {/* Left: copyright */}
         <p className="text-sm text-zinc-500">
-          © {year} Harry Bui. Built with Next.js & Tailwind CSS.
+          ©{' '}
+          <span onClick={handleYearClick} className="cursor-default">
+            {year}
+          </span>{' '}
+          Harry Bui. Built with Next.js & Tailwind CSS.
         </p>
 
         {/* Right: social links */}
