@@ -24,6 +24,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Privacy-friendly visit analytics: https://www.goatcounter.com */}
+        <script
+          data-goatcounter="https://harrybui.goatcounter.com/count"
+          async
+          src="//gc.zgo.at/count.js"
+        />
+      </head>
       <body className="min-h-screen flex flex-col">
         <Navbar />
         {/* Main content grows to fill available vertical space */}
