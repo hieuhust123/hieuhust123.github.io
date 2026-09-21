@@ -35,8 +35,10 @@ export default function Footer() {
 
   // Clicking the copyright year opens GoatCounter's own opt-out prompt,
   // letting the site owner exclude their own browser from visit tracking.
+  // GoatCounter only checks the hash on page load, so force a full reload.
   function handleYearClick() {
-    window.location.hash = 'toggle-goatcounter';
+    window.location.href = window.location.pathname + '#toggle-goatcounter';
+    window.location.reload();
   }
 
   return (
