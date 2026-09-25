@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="760" height="1160" viewBox="0 0 760 1160" role="img" aria-labelledby="title desc">
+<title id="title">03 / SV: observation, checks and coverage</title><desc id="desc">Two monitor streams • separate cloned objects for each consumer</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 L10 5 L0 10z" fill="#47645b"/></marker></defs>
+<style>text{font-family:Arial,sans-serif;fill:#183b30} .title{font-size:25px;font-weight:700} .body{font-size:16px;fill:#465e55} .name{font-size:19px;font-weight:700} .label{font-size:15px;fill:#47645b} .section{font-size:16px;font-weight:700;fill:#247450}</style>
+<rect width="760" height="1160" rx="16" fill="#fafcfb"/>
+<text x="32" y="45" class="title" text-anchor="start">03 / SV: observation, checks and coverage</text>
+<text x="32" y="74" class="body" text-anchor="start">Two monitor streams • separate cloned objects for each consumer</text>
+<text x="32" y="115" class="section" text-anchor="start">CHECKING  /  observed activity → expected state → verdict</text>
+<rect x="32" y="140" width="330" height="94" rx="10" fill="#eef5fc" stroke="#99b6cf" stroke-width="1.5"/>
+<text x="50" y="169" class="name" text-anchor="start">apb_monitor</text>
+<text x="50" y="195" class="body" text-anchor="start">timer_if.monitor_cb · negedge PCLK</text>
+<text x="50" y="218" class="body" text-anchor="start">PSEL &amp;&amp; PENABLE &amp;&amp; PREADY</text>
+<rect x="398" y="140" width="330" height="94" rx="10" fill="#eef5fc" stroke="#99b6cf" stroke-width="1.5"/>
+<text x="416" y="169" class="name" text-anchor="start">timer_event_monitor</text>
+<text x="416" y="195" class="body" text-anchor="start">timer_if.timer_cb · posedge PCLK</text>
+<text x="416" y="218" class="body" text-anchor="start">Reset or sample while out of reset</text>
+<path d="M65 234 V324" fill="none" stroke="#47645b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="197" y="265" class="label" text-anchor="middle">clone() → predictor_mbx</text>
+<text x="197" y="290" class="label" text-anchor="middle">apb_transaction</text>
+<path d="M430 234 V324" fill="none" stroke="#47645b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="563" y="265" class="label" text-anchor="middle">clone() → timer_event_mbx</text>
+<text x="563" y="290" class="label" text-anchor="middle">timer_event</text>
+<rect x="32" y="324" width="696" height="129" rx="10" fill="#fff8e9" stroke="#cfb778" stroke-width="1.5"/>
+<text x="50" y="353" class="name" text-anchor="start">timer_predictor</text>
+<text x="50" y="379" class="body" text-anchor="start">run(): APB state updates and read/error checks</text>
+<text x="50" y="402" class="body" text-anchor="start">run_timer(): reset, selected-clock edge, load/count, expected wrap status</text>
+<text x="50" y="425" class="body" text-anchor="start">Shared expected state: TDR, TCR, TSR, TCNT</text>
+<path d="M380 453 V543" fill="none" stroke="#47645b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="398" y="486" class="label" text-anchor="start">check_result_mbx</text>
+<text x="398" y="512" class="label" text-anchor="start">timer_check_result {kind, actual, expected}</text>
+<rect x="140" y="543" width="480" height="94" rx="10" fill="#fff8e9" stroke="#cfb778" stroke-width="1.5"/>
+<text x="158" y="572" class="name" text-anchor="start">timer_comparator</text>
+<text x="158" y="598" class="body" text-anchor="start">actual === expected → PASS / FAIL counters</text>
+<text x="158" y="621" class="body" text-anchor="start">report() prints the comparison summary</text>
+<text x="32" y="688" class="section" text-anchor="start">COVERAGE  /  independent copies from the same two monitors</text>
+<rect x="32" y="711" width="330" height="78" rx="10" fill="#eef5fc" stroke="#99b6cf" stroke-width="1.5"/>
+<text x="50" y="740" class="name" text-anchor="start">Same APB monitor</text>
+<text x="50" y="766" class="body" text-anchor="start">Second clone of each observation</text>
+<rect x="398" y="711" width="330" height="78" rx="10" fill="#eef5fc" stroke="#99b6cf" stroke-width="1.5"/>
+<text x="416" y="740" class="name" text-anchor="start">Same timer-event monitor</text>
+<text x="416" y="766" class="body" text-anchor="start">Second clone of each event</text>
+<path d="M65 789 V874" fill="none" stroke="#47645b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="197" y="829" class="label" text-anchor="middle">coverage_mbx</text>
+<path d="M430 789 V874" fill="none" stroke="#47645b" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="563" y="829" class="label" text-anchor="middle">timer_coverage_mbx</text>
+<rect x="32" y="874" width="696" height="102" rx="10" fill="#eef5fc" stroke="#99b6cf" stroke-width="1.5"/>
+<text x="50" y="903" class="name" text-anchor="start">timer_coverage</text>
+<text x="50" y="929" class="body" text-anchor="start">APB operations, addresses, errors, TCR fields and crosses</text>
+<text x="50" y="952" class="body" text-anchor="start">Timer reset context and sampled wrap flags; fake-wrap scenarios via APB</text>
+<text x="32" y="1014" class="section" text-anchor="start">READING THIS VIEW</text>
+<text x="32" y="1043" class="body" text-anchor="start">Monitor boxes repeat for readability; there is one instance of each monitor.</text>
+<text x="32" y="1070" class="body" text-anchor="start">Timer events carry sampled levels; the predictor reconstructs clock edges.</text>
+<text x="32" y="1097" class="body" text-anchor="start">Top waits for lifecycle counts to drain, then reports and finishes.</text>
+<text x="32" y="1124" class="body" text-anchor="start">APB / timer ordering remains an open issue; this is not a closure claim.</text></svg>

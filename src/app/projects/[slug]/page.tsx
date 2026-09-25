@@ -27,9 +27,15 @@ type Media =
 
 // One image shown inside a write-up section.
 // `fit` works like the hero's: 'contain' shows the whole image (good for diagrams).
-type SectionImage = { src: string; alt: string; caption?: string; fit?: 'cover' | 'contain' };
-
-type Metric = { value: string; label: string; note?: string };
+type SectionImage = {
+  src: string;
+  alt: string;
+  caption?: string;
+  fit?: 'cover' | 'contain';
+  // 'natural' renders the image at its own aspect ratio instead of a fixed
+  // box — required for tall diagrams whose text would shrink if letterboxed.
+  aspect?: 'video' | 'diagram' | 'natural';
+};
 
 // One section of the write-up: a heading, optional paragraphs, and optional images.
 // `images` render as a responsive grid below the paragraphs (1 image = full width).
@@ -54,7 +60,6 @@ const PROJECTS: Record<
     githubUrl: string;
     liveUrl: string;
     media?: Media;
-    metrics?: Metric[];
     body: Section[];
   }
 > = {
@@ -221,22 +226,17 @@ const PROJECTS: Record<
   'project-three': {
     title: 'APB Timer IP — Verilog RTL + SystemVerilog Verification',
     summary:
-      'An ongoing 8-bit Timer IP project: Verilog RTL with an AMBA APB interface, plus a class-based SystemVerilog environment built to evolve the original procedural verification baseline.',
+      'An ongoing 8-bit Timer IP project: Verilog RTL with an AMBA APB interface, plus a class-based SystemVerilog environment that exposed, root-caused and fixed a real overflow bug in the design.',
     tags: ['Verilog RTL', 'SystemVerilog', 'APB', 'QuestaSim', 'Constrained Random', 'Functional Coverage'],
     date: 'May 2026 — ongoing',
     githubUrl: 'https://github.com/hieuhust123/Timer_full',
     liveUrl: '',
     media: {
       type: 'image',
-      src: '/projects/project-three/rtl-architecture.svg',
-      alt: 'RTL architecture showing the APB slave, Timer registers, clock selection, counter, and wrap detection',
+      src: '/projects/project-three/project-overview.svg',
+      alt: 'APB Timer IP evolving from Verilog RTL to a class-based SystemVerilog verification environment',
       fit: 'contain',
     },
-    metrics: [
-      { value: '26 / 0', label: 'Original verified baseline', note: 'PASS / FAIL before architectural scaling' },
-      { value: '37 / 0', label: 'Seeded random checkpoint', note: 'PASS / FAIL, seed 10' },
-      { value: 'Ongoing', label: 'Verification status', note: 'Multi-seed, coverage and assertion closure remain' },
-    ],
     body: [
       {
         heading: 'Overview',
@@ -257,6 +257,7 @@ const PROJECTS: Record<
             alt: 'APB Timer RTL architecture and four-address register map',
             caption: 'RTL dataflow: external APB and clock inputs configure the register bank and PCLK-domain Timer datapath.',
             fit: 'contain',
+            aspect: 'natural',
           },
         ],
       },
@@ -273,6 +274,15 @@ const PROJECTS: Record<
           'The original Verilog testbench established a procedural, self-checking baseline. The SystemVerilog version separates stimulus policy, protocol driving, passive observation, prediction, comparison and coverage into focused components instead of extending one monolithic scoreboard.',
           'Directed and constrained-random tests inherit from a common virtual base test and share one typed request mailbox and one APB driver. The top-level selects either test through a base-class handle, demonstrating polymorphism while preserving a single owner for APB request signals.',
         ],
+        images: [
+          {
+            src: '/projects/project-three/verification-stimulus.svg',
+            alt: 'Stimulus path from test through the request mailbox and APB driver to the interface and DUT',
+            caption: 'The single active path: test → request mailbox → APB driver → interface/DUT.',
+            fit: 'contain',
+            aspect: 'natural',
+          },
+        ],
       },
       {
         heading: 'SystemVerilog Verification Architecture',
@@ -286,6 +296,7 @@ const PROJECTS: Record<
             alt: 'Class-based SystemVerilog verification architecture from tests through driver, DUT, monitors, predictor, comparator, and coverage',
             caption: 'One active APB owner, independent passive observation streams, separated prediction and comparison, and explicit lifecycle accounting.',
             fit: 'contain',
+            aspect: 'natural',
           },
         ],
       },
@@ -294,34 +305,36 @@ const PROJECTS: Record<
         paragraphs: [
           'A TCR write configures the Timer; it does not itself cause every future count. APB observations and Timer events therefore enter the predictor as separate causal streams. Interface clocking blocks centralize drive and sample timing instead of scattering raw edge controls through the classes.',
           'Only a selected-clock 0-to-1 transition with enable asserted can load, increment or decrement expected TCNT. Overflow is predicted only for FF-to-00 and underflow only for 00-to-FF, preventing boundary loads from being mistaken for real wrap events.',
-          'Same-cycle APB and Timer-event ordering is a known open issue: some seeds can expose a TCNT prediction mismatch. The current work is making that ordering deterministic rather than presenting the reference model as verification-complete.',
+          'Same-cycle APB and Timer-event ordering is a known open issue, now isolated to one scenario. In the mixed-address random test the counter free-runs from a randomised TCR write while the read-back aligns only to CLK_IN[0], so when a different clock source is selected the read can land one edge away from the prediction. This is a testbench ordering race rather than an RTL defect, and making that ordering deterministic is the current work.',
         ],
       },
       {
         heading: 'Constrained-Random Stimulus and Functional Coverage',
         paragraphs: [
           'Request fields are randomized with legal base constraints and targeted inline constraints, while DUT response fields remain non-random. Directed and random stimulus reuse the same mailbox transport and driver, and seeds are recorded for repeatability.',
-          'APB coverpoints measure operation, address, validity, PSLVERR and TCR fields, with requirement-driven crosses. Timer-event coverage measures reset context, direction at real wraps, and fake-overflow/fake-underflow prevention. A reported 100% value applies only to the legal bins in that specific covergroup version; pause/resume coverage, merged-regression closure, code coverage and assertion coverage remain separate work.',
+          'APB coverpoints measure operation, address, validity, PSLVERR and TCR fields, with requirement-driven crosses. Timer-event coverage measures reset context, direction at real wraps, and fake-overflow/fake-underflow prevention. A reported 100% value applies only to the legal bins in that specific covergroup version. Pause/resume scenarios now pass in both count directions and are included in the directed run; code coverage and assertion coverage remain separate work.',
         ],
-      },
-      {
-        heading: 'Bug Exposed by Verification',
-        paragraphs: [
-          'A directed false-wrap scenario exposed an RTL bug: loading TCNT across the FF-to-00 boundary could set overflow even though no real counting event occurred. The wrap detector was updated to qualify the transition with the load control, and matching fake-overflow and fake-underflow scenarios were added to both checking and functional coverage.',
-          'This was a useful verification lesson: boundary values alone do not prove a wrap. The model and RTL must distinguish the cause of a transition—load versus count—not merely its before-and-after values.',
+        images: [
+          {
+            src: '/projects/project-three/verification-checking-coverage.svg',
+            alt: 'Checking and coverage path from monitors through the predictor and comparator to functional coverage',
+            caption: 'Passive monitors feed the predictor and comparator for checking, and functional coverage independently.',
+            fit: 'contain',
+            aspect: 'natural',
+          },
         ],
       },
       {
         heading: 'Verified Checkpoints',
         paragraphs: [
-          'The original procedural testbench established a reproducible 26 PASS / 0 FAIL baseline. A later constrained-random smoke checkpoint completed 37 comparisons with 0 failures using seed 10. These numbers are intentionally labeled as different checkpoints rather than combined into one test count.',
-          'Aggregate code-coverage percentages are intentionally withheld until the expanded directed and random regressions are cleanly rerun against the same coverage model and their UCDB databases are merged. Coverage occurrence does not override a comparator failure.',
+          'A clean directed checkpoint using seed 11 executes 179 comparator checks with 179 PASS / 0 FAIL. That run reports 100% APB, 100% Timer-event and 100% fake-wrap functional coverage. A separate constrained-random checkpoint using seed 10 executes 37 comparator checks with 37 PASS / 0 FAIL and reports 100% APB functional coverage. These are checks from two different suites and seeds, so they are deliberately not combined into one test count.',
+          'The current merged UCDB code-coverage report was generated from the seed-10 directed and random coverage runs, not from the clean seed-11 transcript. It records 95.77% statements, 94.20% branches, 92.53% toggles and 100% FSM states for the DUT, with FSM transitions at 71.43%. These figures are presented as coverage-occurrence evidence and are kept separate from the clean seed-11 correctness checkpoint.',
         ],
       },
       {
         heading: 'Current Engineering Status',
         paragraphs: [
-          'The class-based environment, major directed scenarios, constrained-random path and functional coverage model are implemented. Deterministic multi-seed regression, APB transition closure, complete requirement-to-coverage mapping and assertions remain in progress, so the repository reflects active development rather than a verification-complete release.',
+          'The class-based environment, directed scenarios including pause/resume and reset-during-count, the constrained-random path, the functional coverage model and the merged UCDB workflow are implemented. Deterministic multi-seed regression, the remaining APB FSM transition closure and assertions remain in progress, so the repository reflects active development rather than a verification-complete release.',
           'Build targets and scripts support compilation, directed/random selection, seed recording, UCDB capture and coverage-report workflows with Make, Tcl and Bash. Assertions are roadmap work and are intentionally not claimed as completed.',
         ],
       },
@@ -452,18 +465,6 @@ export default function ProjectDetailPage({ params }: Props) {
         )}
       </div>
 
-      {project.metrics && project.metrics.length > 0 && (
-        <section aria-label="Verified project metrics" className="mb-14 grid grid-cols-1 gap-3 sm:grid-cols-3">
-          {project.metrics.map((metric) => (
-            <div key={metric.label} className="rounded-xl border border-[#E5E5E5] bg-white p-5">
-              <p className="font-mono text-2xl font-semibold text-green-700">{metric.value}</p>
-              <p className="mt-1 text-sm font-semibold text-ink">{metric.label}</p>
-              {metric.note && <p className="mt-1 text-xs leading-relaxed text-zinc-500">{metric.note}</p>}
-            </div>
-          ))}
-        </section>
-      )}
-
       {/* ── Long-form content ───────────────────────────────────────── */}
       <article className="prose prose-zinc max-w-none
                           prose-headings:font-semibold
@@ -482,9 +483,40 @@ export default function ProjectDetailPage({ params }: Props) {
                   section.images.length === 1 ? 'grid-cols-1' : 'grid-cols-1 sm:grid-cols-2'
                 }`}
               >
-                {section.images.map((img) => (
+                {section.images.map((img) =>
+                  img.aspect === 'natural' ? (
+                    <figure key={img.src} className="m-0">
+                      <div className="overflow-x-auto rounded-lg border border-[#E5E5E5] bg-[#FFFFFF]">
+                        {/* eslint-disable-next-line @next/next/no-img-element -- natural height needs a plain img, not next/image's fill mode */}
+                        <img
+                          src={img.src}
+                          alt={img.alt}
+                          className="mx-auto h-auto w-full min-w-[680px]"
+                        />
+                      </div>
+                      <div className="mt-2 flex items-start justify-between gap-4">
+                        {img.caption && (
+                          <figcaption className="font-mono text-xs text-zinc-500">
+                            {img.caption}
+                          </figcaption>
+                        )}
+                        <a
+                          href={img.src}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="shrink-0 whitespace-nowrap font-mono text-xs text-green-700 hover:underline"
+                        >
+                          Open full size ↗
+                        </a>
+                      </div>
+                    </figure>
+                  ) : (
                   <figure key={img.src} className="m-0">
-                    <div className="relative aspect-video overflow-hidden rounded-lg border border-[#E5E5E5] bg-[#FFFFFF]">
+                    <div
+                      className={`relative overflow-hidden rounded-lg border border-[#E5E5E5] bg-[#FFFFFF] ${
+                        img.aspect === 'diagram' ? 'aspect-[32/23]' : 'aspect-video'
+                      }`}
+                    >
                       <Image
                         src={img.src}
                         alt={img.alt}
@@ -499,7 +531,8 @@ export default function ProjectDetailPage({ params }: Props) {
                       </figcaption>
                     )}
                   </figure>
-                ))}
+                  )
+                )}
               </div>
             )}
           </section>

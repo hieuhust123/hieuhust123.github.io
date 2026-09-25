@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="788" viewBox="0 0 1400 788" role="img" aria-labelledby="title desc">
+  <title id="title">APB Timer IP from Verilog RTL to SystemVerilog verification</title>
+  <desc id="desc">A simple project overview showing the Verilog Timer RTL on the left and its class-based SystemVerilog verification environment on the right.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#15803d"/></marker>
+    <style>
+      .bg{fill:#f8faf9}.frame{fill:#fff;stroke:#d4ddd7;stroke-width:2}.rtlZone{fill:#eff6ff;stroke:#2563eb;stroke-width:2}.dvZone{fill:#ecfdf3;stroke:#15803d;stroke-width:2}.box{fill:#fff;stroke:#64748b;stroke-width:1.8}.title{font:700 34px Arial,sans-serif;fill:#17211b}.subtitle{font:16px Arial,sans-serif;fill:#526057}.zoneTitle{font:700 24px Arial,sans-serif;fill:#17211b;text-anchor:middle}.name{font:700 17px Arial,sans-serif;fill:#17211b;text-anchor:middle}.text{font:14px Arial,sans-serif;fill:#526057;text-anchor:middle}.tag{font:700 13px Arial,sans-serif;fill:#15803d;text-anchor:middle}.flow{fill:none;stroke:#15803d;stroke-width:3;marker-end:url(#arrow)}
+    </style>
+  </defs>
+  <rect class="bg" width="1400" height="788"/>
+  <rect class="frame" x="24" y="24" width="1352" height="740" rx="24"/>
+  <text class="title" x="700" y="78" text-anchor="middle">APB Timer IP</text>
+  <text class="subtitle" x="700" y="108" text-anchor="middle">Verilog RTL + class-based SystemVerilog verification · ongoing engineering project</text>
+
+  <rect class="rtlZone" x="70" y="155" width="550" height="475" rx="22"/>
+  <text class="zoneTitle" x="345" y="198">Verilog RTL</text>
+  <text class="text" x="345" y="225">8-bit programmable Timer with an AMBA APB register interface</text>
+  <rect class="box" x="115" y="275" width="180" height="105" rx="14"/>
+  <text class="name" x="205" y="312">APB Slave</text>
+  <text class="text" x="205" y="340">wait states · PSLVERR</text>
+  <text class="text" x="205" y="363">TDR · TCR · TSR · TCNT</text>
+  <rect class="box" x="395" y="275" width="180" height="105" rx="14"/>
+  <text class="name" x="485" y="312">Timer Datapath</text>
+  <text class="text" x="485" y="340">four clock inputs</text>
+  <text class="text" x="485" y="363">load · hold · count ±1</text>
+  <path class="flow" d="M295 328 H395"/>
+  <rect class="box" x="255" y="445" width="180" height="105" rx="14"/>
+  <text class="name" x="345" y="482">Status Logic</text>
+  <text class="text" x="345" y="510">real OVF / UDF wraps</text>
+  <text class="text" x="345" y="533">sticky W1C flags</text>
+  <path class="flow" d="M485 380 V415 H345 V445"/>
+  <path class="flow" d="M255 498 H205 V380"/>
+
+  <path class="flow" d="M620 392 H775"/>
+  <text class="tag" x="698" y="374">observed and checked</text>
+
+  <rect class="dvZone" x="780" y="155" width="550" height="475" rx="22"/>
+  <text class="zoneTitle" x="1055" y="198">SystemVerilog Verification</text>
+  <text class="text" x="1055" y="225">Reusable components with one APB signal owner</text>
+  <rect class="box" x="825" y="275" width="180" height="105" rx="14"/>
+  <text class="name" x="915" y="312">Stimulus</text>
+  <text class="text" x="915" y="340">directed + constrained random</text>
+  <text class="text" x="915" y="363">typed request mailbox</text>
+  <rect class="box" x="1105" y="275" width="180" height="105" rx="14"/>
+  <text class="name" x="1195" y="312">Observation</text>
+  <text class="text" x="1195" y="340">APB + Timer monitors</text>
+  <text class="text" x="1195" y="363">cloned passive streams</text>
+  <rect class="box" x="825" y="445" width="180" height="105" rx="14"/>
+  <text class="name" x="915" y="482">Checking</text>
+  <text class="text" x="915" y="510">predictor → comparator</text>
+  <text class="text" x="915" y="533">lifecycle accounting</text>
+  <rect class="box" x="1105" y="445" width="180" height="105" rx="14"/>
+  <text class="name" x="1195" y="482">Coverage</text>
+  <text class="text" x="1195" y="510">APB + Timer covergroups</text>
+  <text class="text" x="1195" y="533">requirement-driven crosses</text>
+
+  <rect class="frame" x="245" y="675" width="910" height="54" rx="14"/>
+  <text class="tag" x="700" y="707">Current focus: deterministic same-cycle ordering · APB transition closure · merged coverage · assertions</text>
+</svg>
